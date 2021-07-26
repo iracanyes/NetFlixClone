@@ -1,0 +1,5 @@
+GraphQL endpoint: https://53gsinyusfhnxe64566svrnh3a.appsync-api.eu-west-1.amazonaws.com/graphql
+
+Hosted UI Endpoint: https://netflixclonefb34748f-fb34748f-dev.auth.eu-west-1.amazoncognito.com/
+Test Your Hosted UI Endpoint: https://netflixclonefb34748f-fb34748f-dev.auth.eu-west-1.amazoncognito.com/logi
+n?response_type=code&client_id=7blm55tl0p4bcilfg0gpf2s9it&redirect_uri=https://localhost:19000/

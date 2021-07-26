@@ -3,38 +3,84 @@
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 
-import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import {
+  ProfilePicture
+} from "../components";
+import {
+  HomeScreen,
+  ComingSoonScreen,
+  SearchScreen,
+  DownloadScreen
+} from "../screens";
+import { 
+  BottomTabParamList, 
+  HomeParamList, 
+  ComingSoonParamList, 
+  SearchParamList,
+  DownloadParamList 
+} from '../types';
+import { 
+  Entypo,
+  Feather,
+  Octicons,
+  Ionicons, MaterialCommunityIcons
+ } from '@expo/vector-icons';
+ import { Text } from "react-native";
+ import { useNavigation } from "@react-navigation/native";
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+const BottomTab = createMaterialBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+      initialRouteName="Home"
+      activeColor={Colors[colorScheme].tint}
+      barStyle={{
+        backgroundColor: Colors.dark.background,
+      }}
+      labeled={true}      
+    >
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Home"
+        component={HomeNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          //title: 'Netflix',
+          tabBarLabel: 'Home',
+          tabBarIcon:({ color }) => <Octicons name="home" color={color} size={24}/>,
+          
+        }}        
+      />
+      <BottomTab.Screen
+        name="ComingSoon"
+        component={ComingSoonNavigator}
+        options={{
+          title: 'Coming Soon',
+          tabBarLabel: 'Coming Soon',
+          tabBarIcon: ({ color }) => <Entypo name="folder-video" color={color} size={24}/>,
+          tabBarBadge: 5
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="Search"
+        component={SearchNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <Feather name="search" color={color} size={24}/>,
+        }}
+      />
+      <BottomTab.Screen
+        name="Downloads"
+        component={DownloadNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <Ionicons name="ios-cloud-download" color={color} size={24}/>,
         }}
       />
     </BottomTab.Navigator>
@@ -49,30 +95,93 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const HomeStack = createStackNavigator<HomeParamList>();
 
-function TabOneNavigator() {
+function HomeNavigator() {
+  const navigation = useNavigation();
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+    <HomeStack.Navigator
+      headerMode={'none'}
+    >
+      <HomeStack.Screen
+        name="Home"
+        component={HomeScreen}
       />
-    </TabOneStack.Navigator>
+    </HomeStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const ComingSoonStack = createStackNavigator<ComingSoonParamList>();
 
-function TabTwoNavigator() {
+function ComingSoonNavigator() {
+  const navigation = useNavigation();
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+    <ComingSoonStack.Navigator>
+      <ComingSoonStack.Screen
+        name="ComingSoonScreen"
+        component={ComingSoonScreen}
+        options={{ 
+          headerTitle: () => (
+            <Text 
+              style={{
+                fontSize: 22,
+                fontWeight: 'bold',
+                color: Colors.dark.tintFirst,
+              }}
+            >
+              Coming Soon
+            </Text>
+          ),
+          headerRight: () => (
+            <ProfilePicture
+              image={"https://www.fillmurray.com/640/360"}
+              size={30}
+              styles={{
+                profileButton: {
+                  borderWidth: 3,
+                  backgroundColor: '#0000',
+                  borderColor: Colors.dark.tintFirst,
+                  borderRadius: 15,
+                  padding: 5
+                },
+                profileImage: {},
+              }}
+              onPress={() => navigation.navigate('Profile')}
+            />
+          ),          
+          headerRightContainerStyle: {
+            marginRight: 15
+          }, 
+        }}
       />
-    </TabTwoStack.Navigator>
+    </ComingSoonStack.Navigator>
   );
 }
+
+const SearchStack = createStackNavigator<SearchParamList>();
+
+function SearchNavigator (){
+  return (
+    <SearchStack.Navigator>
+      <SearchStack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+      />
+    </SearchStack.Navigator>
+  );
+}
+
+const DownloadStack = createStackNavigator<SearchParamList>();
+
+function DownloadNavigator (){
+  return (
+    <DownloadStack.Navigator>
+      <DownloadStack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+      />
+    </DownloadStack.Navigator>
+  );
+}
+
+

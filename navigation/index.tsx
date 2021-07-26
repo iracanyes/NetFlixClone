@@ -12,6 +12,8 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
+import ProfileBottomTabNavigator from './ProfileBottomTabNavigator';
+import {LoginScreen, SubscribeScreen} from "../screens";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -29,8 +31,14 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator 
+      initialRouteName='Login'
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name={"Login"} component={LoginScreen} />
+      <Stack.Screen name={"Subscribe"} component={SubscribeScreen} />
       <Stack.Screen name="Root" component={BottomTabNavigator} />
+      <Stack.Screen name="Profile" component={ProfileBottomTabNavigator}/>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );

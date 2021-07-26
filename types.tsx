@@ -5,18 +5,45 @@
 
 export type RootStackParamList = {
   Root: undefined;
+  Login: undefined;
+  Subscribe: undefined;
+  Profile: undefined;
   NotFound: undefined;
 };
 
 export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
+  Home: undefined;
+  ComingSoon: undefined;
+  Search: undefined;
+  Downloads: undefined;
 };
 
-export type TabOneParamList = {
-  TabOneScreen: undefined;
+export type HomeParamList = {
+  Home: undefined;
 };
 
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
+export type ComingSoonParamList = {
+  ComingSoonScreen: undefined;
+};
+
+export type SearchParamList = {
+  SearchScreen: undefined;
+};
+
+export type DownloadParamList = {
+  DownloadScreen: undefined;
+};
+
+export type ProfilePictureProps = {
+  image: string;
+  styles?: {
+    profileButton: object;
+    profileImage: object;
+  };
+  size: number;
+  onPress?: (() => void)|null;
+};
+
+export type ProfileBottomTabParamList = {
+  Profile: undefined;
 };
