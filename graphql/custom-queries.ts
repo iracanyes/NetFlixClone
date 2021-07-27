@@ -1,29 +1,3 @@
-export const getCategoryWithMovies = /* GraphQL */ `
-  query GetCategory($id: ID!) {
-    getCategory(id: $id) {
-      id
-      title
-      movies {
-        items {
-          id
-          title
-          poster
-          year
-          numberOfSeasons
-          plot
-          cast
-          creator
-          categoryID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const listCategories = /* GraphQL */ `
   query ListCategorys(
     $filter: ModelCategoryFilterInput
@@ -34,11 +8,32 @@ export const listCategories = /* GraphQL */ `
       items {
         id
         title
-        movies {
-          nextToken
-        }
         createdAt
         updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+
+export const listCategoryMovies = /* GraphQL */ `
+  query ListMovieCategorys(
+    $filter: ModelMovieCategoryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMovieCategorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        __typename
+        movie {
+          id
+          __typename
+          title
+          poster
+          creator
+          trailer
+        }
       }
       nextToken
     }

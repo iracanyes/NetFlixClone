@@ -4,7 +4,8 @@ import {
   PosterList
 } from "../components";
 import { IGetMoviesByCategory } from "../types/interfaces";
-import {getCategoryWithMovies} from "../graphql/custom-queries";
+import {listCategoryMovies} from "../graphql/custom-queries";
+import {View} from "react-native";
 
 const GetMoviesByCategory = (props: IGetMoviesByCategory) => {
   const { category } = props;
@@ -12,23 +13,40 @@ const GetMoviesByCategory = (props: IGetMoviesByCategory) => {
 
   useEffect(() => {
     const fetchMoviesByCategory = async () => {
-      // @ts-ignore
-      const res = await API.graphql(graphqlOperation(getCategoryWithMovies, { id: category.id}));
-
-      // @ts-ignore
-      if(res.data.getCategory){
+      try{
+        if(category === undefined) return;
+        // @ ts-ignore
+        const res = await API.graphql(graphqlOperation(
+          listCategoryMovies,
+          {
+            filter: {
+              categoryID: { contains: category.id}
+            }
+          }
+        ));
         // @ts-ignore
-        console.log('GetMoviesByCategory useEffect res', res.data.getCategory)
+        console.log('GetMoviesByCategory useEffect res', res.data)
         // @ts-ignore
-        setMoviesByCategory(res.data.getCategory.movies.items);
+        if(res.data.listMovieCategorys){
+          // @ts-ignore
+          console.log('GetMoviesByCategory useEffect res', res.data.listMovieCategorys)
+          // @ts-ignore
+          setMoviesByCategory(res.data.listMovieCategorys.items);
+        }
+      }catch (e) {
+        console.log('GetMoviesByCategory useEffect res error', e);
       }
+      
+      
     };
 
     fetchMoviesByCategory();
   }, []);
 
   return (
-    <PosterList medias={moviesByCategory} title={category.title}/>
+    <View>
+      { category && (<PosterList medias={moviesByCategory} title={category.title}/>)}
+    </View>
   );
 };
 

@@ -1,7 +1,10 @@
 // Movie Action Buttons component props
 
+import {PosterListDataType} from "../types";
+
 export interface IUser {
   id: string;
+  _typename: string;
   username: string;
   name: string;
   email: string;
@@ -11,6 +14,7 @@ export interface IUser {
 
 export interface IWatched {
 	id: string;
+	__typename: string;
 	userID?: string;
 	user?: IUser;
 	movieID?: string;
@@ -19,14 +23,26 @@ export interface IWatched {
 
 export interface ICategory {
   id: string;
+	__typename: string;
   title: string;
   movies: {
   	items: [IMovie]
 	}
 }
 
+export interface IMovieCategory{
+	id: string;
+	__typename: 'MovieCategory';
+	categoryID: string;
+	movieID: string;
+	category: ICategory
+	movie: IMovie
+	
+}
+
 export interface IMovie {
 	id: string;
+	__typename: 'Movie';
 	title: string;
 	poster: string;
 	year: number;
@@ -34,7 +50,6 @@ export interface IMovie {
 	plot: string;
 	cast: string;
 	creator: string;
-	categoryID: string;
 	seasons?: {
 		items: [ISeason]
 	}
@@ -45,6 +60,7 @@ export interface IMovie {
 
 export interface ISeason {
 	id: string;
+	__typename: 'Season';
 	name: string;
 	movieID: string;
 	movie: IMovie;
@@ -53,6 +69,7 @@ export interface ISeason {
 
 export interface IEpisode {
 	id: string;
+	__typename: 'Episode';
 	title: string;
 	poster: string;
 	duration: string;
@@ -62,25 +79,20 @@ export interface IEpisode {
 	season: ISeason
 }
 
-export interface IUser {
-	id: string;
-	username: string;
-	name: string;
-	email: string;
-	image: string;
-}
 
 export interface IMovieActionButtonsProps {
     
 }
 
+
+
 export interface IPosterListProps {
 	title: string;
-	medias: IMovie[]|IEpisode[]|null;
+	medias: PosterListDataType
 }
 
 export interface IPosterItemProps {
-	item: IMovie|IEpisode
+	item: IMovieCategory|IEpisode
 }
 
 export interface IGetMoviesByCategory {

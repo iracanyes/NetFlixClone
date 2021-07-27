@@ -7,17 +7,11 @@ export const getCategory = /* GraphQL */ `
     getCategory(id: $id) {
       id
       title
-      movies {
+      categoryMovies {
         items {
           id
-          title
-          poster
-          year
-          numberOfSeasons
-          plot
-          cast
-          creator
           categoryID
+          movieID
           createdAt
           updatedAt
         }
@@ -38,7 +32,7 @@ export const listCategorys = /* GraphQL */ `
       items {
         id
         title
-        movies {
+        categoryMovies {
           nextToken
         }
         createdAt
@@ -59,7 +53,17 @@ export const getMovie = /* GraphQL */ `
       plot
       cast
       creator
-      categoryID
+      trailer
+      movieCategories {
+        items {
+          id
+          categoryID
+          movieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       watched {
         items {
           id
@@ -101,12 +105,94 @@ export const listMovies = /* GraphQL */ `
         plot
         cast
         creator
-        categoryID
+        trailer
+        movieCategories {
+          nextToken
+        }
         watched {
           nextToken
         }
         seasons {
           nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getMovieCategory = /* GraphQL */ `
+  query GetMovieCategory($id: ID!) {
+    getMovieCategory(id: $id) {
+      id
+      categoryID
+      movieID
+      category {
+        id
+        title
+        categoryMovies {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      movie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        movieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listMovieCategorys = /* GraphQL */ `
+  query ListMovieCategorys(
+    $filter: ModelMovieCategoryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMovieCategorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        categoryID
+        movieID
+        category {
+          id
+          title
+          createdAt
+          updatedAt
+        }
+        movie {
+          id
+          title
+          poster
+          year
+          numberOfSeasons
+          plot
+          cast
+          creator
+          trailer
+          createdAt
+          updatedAt
         }
         createdAt
         updatedAt
@@ -130,7 +216,10 @@ export const getSeason = /* GraphQL */ `
         plot
         cast
         creator
-        categoryID
+        trailer
+        movieCategories {
+          nextToken
+        }
         watched {
           nextToken
         }
@@ -179,7 +268,7 @@ export const listSeasons = /* GraphQL */ `
           plot
           cast
           creator
-          categoryID
+          trailer
           createdAt
           updatedAt
         }
@@ -216,7 +305,7 @@ export const getEpisode = /* GraphQL */ `
           plot
           cast
           creator
-          categoryID
+          trailer
           createdAt
           updatedAt
         }
@@ -339,7 +428,10 @@ export const getWatched = /* GraphQL */ `
         plot
         cast
         creator
-        categoryID
+        trailer
+        movieCategories {
+          nextToken
+        }
         watched {
           nextToken
         }
@@ -385,7 +477,7 @@ export const listWatcheds = /* GraphQL */ `
           plot
           cast
           creator
-          categoryID
+          trailer
           createdAt
           updatedAt
         }

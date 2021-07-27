@@ -34,13 +34,13 @@ const CategoryList = () => {
   }, []);
   return (
     <View style={styles.container}>
-      { categories.length > 0 && (
-        <GetMoviesByCategory category={categories.find((el: ICategory) => el.title === "Animation")} />
-      )}
+      { categories.length > 0 && categories.map(item => (
+        <GetMoviesByCategory
+          key={item.id}
+          category={item} />
+      ))}
   
-      { categories.length > 0 && (
-        <GetMoviesByCategory category={categories.find((el: ICategory) => el.title === "Science Fiction")} />
-      )}
+      
       
     </View>
   );

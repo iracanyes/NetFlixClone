@@ -16,6 +16,7 @@ const PosterList = (props: IPosterListProps) => {
 			{medias !== null && (
 				<FlatList
 					horizontal
+					//@ts-ignore
 					data={medias}
 					renderItem={(item) => <PosterItem item={item.item} />}
 					keyExtractor={item => item.id}

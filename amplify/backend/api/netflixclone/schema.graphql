@@ -4,12 +4,11 @@ type Category
   id: ID!
   title: String!
 
-  movies: [Movie] @connection(keyName:"byCategory", fields: ["id"])
+  categoryMovies: [MovieCategory] @connection(keyName:"byCategory", fields:["id"])
 }
 
 type Movie
 @model
-@key(name: "byCategory", fields: ["categoryID"])
 {
   id: ID!
   title: String!
@@ -23,12 +22,25 @@ type Movie
   cast: String
   creator: String
 
+  trailer: String
   #video: String
 
-  categoryID: ID!
-
+  movieCategories: [MovieCategory] @connection(keyName:"byMovie", fields:["id"])
   watched: [Watched] @connection(keyName:"byMovie", fields:["id"])
   seasons: [Season] @connection(keyName: "byMovie", fields: ["id"])
+}
+
+type MovieCategory
+@key(name:"byMovie", fields:["movieID","categoryID"])
+@key(name:"byCategory", fields:["categoryID","movieID"])
+@model
+{
+  id: ID!
+  categoryID: ID!
+  movieID: ID!
+
+  category: Category @connection(fields:["categoryID"])
+  movie: Movie @connection(fields:["movieID"])
 }
 
 type Season 

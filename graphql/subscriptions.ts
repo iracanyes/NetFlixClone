@@ -7,17 +7,11 @@ export const onCreateCategory = /* GraphQL */ `
     onCreateCategory {
       id
       title
-      movies {
+      categoryMovies {
         items {
           id
-          title
-          poster
-          year
-          numberOfSeasons
-          plot
-          cast
-          creator
           categoryID
+          movieID
           createdAt
           updatedAt
         }
@@ -33,17 +27,11 @@ export const onUpdateCategory = /* GraphQL */ `
     onUpdateCategory {
       id
       title
-      movies {
+      categoryMovies {
         items {
           id
-          title
-          poster
-          year
-          numberOfSeasons
-          plot
-          cast
-          creator
           categoryID
+          movieID
           createdAt
           updatedAt
         }
@@ -59,17 +47,11 @@ export const onDeleteCategory = /* GraphQL */ `
     onDeleteCategory {
       id
       title
-      movies {
+      categoryMovies {
         items {
           id
-          title
-          poster
-          year
-          numberOfSeasons
-          plot
-          cast
-          creator
           categoryID
+          movieID
           createdAt
           updatedAt
         }
@@ -91,7 +73,17 @@ export const onCreateMovie = /* GraphQL */ `
       plot
       cast
       creator
-      categoryID
+      trailer
+      movieCategories {
+        items {
+          id
+          categoryID
+          movieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       watched {
         items {
           id
@@ -128,7 +120,17 @@ export const onUpdateMovie = /* GraphQL */ `
       plot
       cast
       creator
-      categoryID
+      trailer
+      movieCategories {
+        items {
+          id
+          categoryID
+          movieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       watched {
         items {
           id
@@ -165,7 +167,17 @@ export const onDeleteMovie = /* GraphQL */ `
       plot
       cast
       creator
-      categoryID
+      trailer
+      movieCategories {
+        items {
+          id
+          categoryID
+          movieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       watched {
         items {
           id
@@ -191,6 +203,132 @@ export const onDeleteMovie = /* GraphQL */ `
     }
   }
 `;
+export const onCreateMovieCategory = /* GraphQL */ `
+  subscription OnCreateMovieCategory {
+    onCreateMovieCategory {
+      id
+      categoryID
+      movieID
+      category {
+        id
+        title
+        categoryMovies {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      movie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        movieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateMovieCategory = /* GraphQL */ `
+  subscription OnUpdateMovieCategory {
+    onUpdateMovieCategory {
+      id
+      categoryID
+      movieID
+      category {
+        id
+        title
+        categoryMovies {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      movie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        movieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteMovieCategory = /* GraphQL */ `
+  subscription OnDeleteMovieCategory {
+    onDeleteMovieCategory {
+      id
+      categoryID
+      movieID
+      category {
+        id
+        title
+        categoryMovies {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      movie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        movieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateSeason = /* GraphQL */ `
   subscription OnCreateSeason {
     onCreateSeason {
@@ -206,7 +344,10 @@ export const onCreateSeason = /* GraphQL */ `
         plot
         cast
         creator
-        categoryID
+        trailer
+        movieCategories {
+          nextToken
+        }
         watched {
           nextToken
         }
@@ -250,7 +391,10 @@ export const onUpdateSeason = /* GraphQL */ `
         plot
         cast
         creator
-        categoryID
+        trailer
+        movieCategories {
+          nextToken
+        }
         watched {
           nextToken
         }
@@ -294,7 +438,10 @@ export const onDeleteSeason = /* GraphQL */ `
         plot
         cast
         creator
-        categoryID
+        trailer
+        movieCategories {
+          nextToken
+        }
         watched {
           nextToken
         }
@@ -346,7 +493,7 @@ export const onCreateEpisode = /* GraphQL */ `
           plot
           cast
           creator
-          categoryID
+          trailer
           createdAt
           updatedAt
         }
@@ -384,7 +531,7 @@ export const onUpdateEpisode = /* GraphQL */ `
           plot
           cast
           creator
-          categoryID
+          trailer
           createdAt
           updatedAt
         }
@@ -422,7 +569,7 @@ export const onDeleteEpisode = /* GraphQL */ `
           plot
           cast
           creator
-          categoryID
+          trailer
           createdAt
           updatedAt
         }
@@ -541,7 +688,10 @@ export const onCreateWatched = /* GraphQL */ `
         plot
         cast
         creator
-        categoryID
+        trailer
+        movieCategories {
+          nextToken
+        }
         watched {
           nextToken
         }
@@ -585,7 +735,10 @@ export const onUpdateWatched = /* GraphQL */ `
         plot
         cast
         creator
-        categoryID
+        trailer
+        movieCategories {
+          nextToken
+        }
         watched {
           nextToken
         }
@@ -629,7 +782,10 @@ export const onDeleteWatched = /* GraphQL */ `
         plot
         cast
         creator
-        categoryID
+        trailer
+        movieCategories {
+          nextToken
+        }
         watched {
           nextToken
         }

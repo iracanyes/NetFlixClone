@@ -1,3 +1,5 @@
+import {IEpisode, IMovieCategory} from "./types/interfaces";
+
 /**
  * Learn more about using TypeScript with React Navigation:
  * https://reactnavigation.org/docs/typescript/
@@ -47,3 +49,5 @@ export type ProfilePictureProps = {
 export type ProfileBottomTabParamList = {
   Profile: undefined;
 };
+
+export type PosterListDataType = IMovieCategory[]|IEpisode[]|null;
