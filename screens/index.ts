@@ -5,6 +5,8 @@ import DownloadScreen from "./DownloadScreen";
 import ProfileScreen from "./ProfileScreen";
 import LoginScreen from "./LoginScreen";
 import SubscribeScreen from "./SubscribeScreen";
+import MovieDetailScreen from "./MovieDetailScreen";
+import NotFoundScreen from "./NotFoundScreen";
 
 export {
   HomeScreen,
@@ -13,5 +15,7 @@ export {
   DownloadScreen,
   ProfileScreen,
   LoginScreen,
-  SubscribeScreen
+  SubscribeScreen,
+  MovieDetailScreen,
+  NotFoundScreen,
 };

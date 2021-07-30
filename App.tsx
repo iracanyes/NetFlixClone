@@ -8,6 +8,7 @@ import Navigation from './navigation';
 import Amplify, {Auth, Hub} from "aws-amplify";
 import { withAuthenticator } from "aws-amplify-react-native";
 import config from "./aws-exports";
+import Colors from "./constants/Colors";
 
 Amplify.configure({
   ...config,
@@ -48,7 +49,11 @@ function App() {
     return (
       <SafeAreaProvider>
         <Navigation colorScheme={colorScheme} />
-        <StatusBar />
+        <StatusBar
+          backgroundColor={"#000"}
+          style={'light'}
+          translucent={true}
+        />
       </SafeAreaProvider>
     );
   }

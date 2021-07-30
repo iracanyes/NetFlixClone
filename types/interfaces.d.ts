@@ -45,17 +45,20 @@ export interface IMovie {
 	__typename: 'Movie';
 	title: string;
 	poster: string;
-	year: number;
-	numberOfSeasons: number;
+	year: string;
+	numberOfSeasons: string;
 	plot: string;
 	cast: string;
 	creator: string;
 	seasons?: {
 		items: [ISeason]
 	}
-	watched: {
+	watched?: {
 		items: [IWatched]
 	}
+	movieCategories?: {
+		items: [IMovieCategory]
+	};
 }
 
 export interface ISeason {
@@ -81,20 +84,26 @@ export interface IEpisode {
 
 
 export interface IMovieActionButtonsProps {
-    
+	movie: IMovie|null
 }
 
 
 
 export interface IPosterListProps {
-	title: string;
+	category: ICategory;
 	medias: PosterListDataType
 }
 
 export interface IPosterItemProps {
 	item: IMovieCategory|IEpisode
+	category?: ICategory
 }
 
 export interface IGetMoviesByCategory {
 	category: ICategory|undefined
+}
+
+export interface ISimilarMovieProps {
+	movie: IMovie
+	categoryID: string;
 }

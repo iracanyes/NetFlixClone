@@ -10,21 +10,21 @@ import {
   S3Image 
 } from "aws-amplify-react-native";
 import { IPosterItemProps } from "../types/interfaces";
-import {Auth, Storage} from "aws-amplify";
+import {Auth} from "aws-amplify";
+import ResumeModal from "./ResumeModal";
 
 const PosterItem = (props: IPosterItemProps) => {
-  const { item } = props;
-  console.log('PosterItem item', item);
+  const { item, category } = props;
+  //console.log('PosterItem item', item);
   const navigation = useNavigation();
   const [ userID, setUserID ] = useState(null);
+  const [ modalVisibility, setModalVisibility ] = useState(false);
+  
   
   
   
   useEffect(()=> {
-    if('movie' in item){
-      const imgKey = item.movie.poster;
-      console.log('PosterItem imgKey', imgKey);
-    }else{
+    if(!('movie' in item)){
       return;
     }
     
@@ -43,7 +43,13 @@ const PosterItem = (props: IPosterItemProps) => {
   const goToMediaDetailScreen = () => {
     switch (item.__typename) {
       case "MovieCategory":
-        navigation.navigate('MovieScreen', { movie: item.movie.id });
+        navigation.navigate(
+          'MovieScreen',
+          {
+            movie: item.movie.id,
+            category: category
+          }
+        );
         break;
       case "Episode":
         navigation.navigate('SerieScreen', { movie: item.id });
@@ -55,7 +61,7 @@ const PosterItem = (props: IPosterItemProps) => {
     <View>
       <TouchableOpacity
         style={styles.container}
-        onPress={() => goToMediaDetailScreen()}
+        onPress={() => setModalVisibility(!modalVisibility)}
       >
         {'movie' in item && (
           <S3Image
@@ -68,6 +74,11 @@ const PosterItem = (props: IPosterItemProps) => {
           />
         )}
       </TouchableOpacity>
+      <ResumeModal
+        item={ item.__typename === "MovieCategory" ? item.movie : item }
+        modalVisibility={modalVisibility}
+        setModalVisibility={setModalVisibility}
+      />
     </View>
   );
   
@@ -93,7 +104,6 @@ const styles = StyleSheet.create({
     width: 120,
     height: 160,
     borderRadius: 5,
-    //zIndex: 5
   }
 });
 

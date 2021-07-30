@@ -7,6 +7,7 @@ export default {
     text: '#000',
     background: '#fff',
     white: '#fff',
+    black: '#000',
     tint: tintColorLight,
     tintFirst: netflixFirst,
     tabIconDefault: '#ccc',
@@ -14,10 +15,13 @@ export default {
   },
   dark: {
     text: '#fff',
-    background: '#000',    
+    background: '#111010',
+    background1: '#111110',
     tint: tintColorDark,
     tintFirst: netflixFirst,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
+    grey: '#999',
+    black: '#000',
   },
 };

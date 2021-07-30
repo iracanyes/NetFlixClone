@@ -34,7 +34,7 @@ const CategoryList = () => {
   }, []);
   return (
     <View style={styles.container}>
-      { categories.length > 0 && categories.map(item => (
+      { categories.length > 0 && categories.map((item: ICategory) => (
         <GetMoviesByCategory
           key={item.id}
           category={item} />

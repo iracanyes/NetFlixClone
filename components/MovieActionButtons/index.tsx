@@ -16,17 +16,29 @@ import Colors from "../../constants/Colors";
 
 const MovieActionButtons = (props: IMovieActionButtonsProps ) => {
  const { movie } = props;
+ const navigation = useNavigation();
 
   const addToList = () => {
-   console.log('Button add to my list pressed!');
+    console.log('Button add to my list pressed!');
   };
 
   const watchMovie = () => {
-   console.log('Button watch movie pressed!');
+    movie && navigation.navigate('MoviePlayer', { movieID: movie.id });
+    console.log('Button watch movie pressed!');
   };
 
   const showInfos = () => {
-   console.log('Button show infos pressed!');
+    if(movie && ('movieCategories' in movie)){
+      navigation.navigate(
+        'MovieDetail',
+        {
+          data: movie,
+          categoryID: movie.movieCategories.items[0].categoryID
+        }
+      );
+    }
+    
+    console.log('Button show infos pressed!');
   };
 
   return (

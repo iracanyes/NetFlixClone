@@ -9,6 +9,7 @@ export type RootStackParamList = {
   Root: undefined;
   Login: undefined;
   Subscribe: undefined;
+  MovieDetail: undefined;
   Profile: undefined;
   NotFound: undefined;
 };
@@ -22,6 +23,7 @@ export type BottomTabParamList = {
 
 export type HomeParamList = {
   Home: undefined;
+  MovieDetail: undefined;
 };
 
 export type ComingSoonParamList = {

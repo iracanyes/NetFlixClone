@@ -17,7 +17,7 @@ import {
   HomeScreen,
   ComingSoonScreen,
   SearchScreen,
-  DownloadScreen
+  DownloadScreen, MovieDetailScreen
 } from "../screens";
 import { 
   BottomTabParamList, 
@@ -32,7 +32,7 @@ import {
   Octicons,
   Ionicons, MaterialCommunityIcons
  } from '@expo/vector-icons';
- import { Text } from "react-native";
+ import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
  import { useNavigation } from "@react-navigation/native";
 
 const BottomTab = createMaterialBottomTabNavigator<BottomTabParamList>();
@@ -101,11 +101,21 @@ function HomeNavigator() {
   const navigation = useNavigation();
   return (
     <HomeStack.Navigator
-      headerMode={'none'}
+      //headerMode={'none'}
     >
       <HomeStack.Screen
         name="Home"
         component={HomeScreen}
+        options={{
+          headerShown: false
+        }}
+      />
+      <HomeStack.Screen
+        name={"MovieDetail"}
+        component={MovieDetailScreen}
+        options={{
+          headerShown: false
+        }}
       />
     </HomeStack.Navigator>
   );
@@ -185,3 +195,6 @@ function DownloadNavigator (){
 }
 
 
+const styles = StyleSheet.create({
+
+});

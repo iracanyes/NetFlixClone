@@ -3,23 +3,35 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import {NavigationContainer, DefaultTheme, DarkTheme} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import { ColorSchemeName } from 'react-native';
-
-import NotFoundScreen from '../screens/NotFoundScreen';
+import {ColorSchemeName, TouchableOpacity, View} from 'react-native';
 import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import ProfileBottomTabNavigator from './ProfileBottomTabNavigator';
-import {LoginScreen, SubscribeScreen} from "../screens";
+import {
+  LoginScreen,
+  SubscribeScreen,
+  MovieDetailScreen,
+  NotFoundScreen
+} from "../screens";
+import {
+  Entypo
+} from "@expo/vector-icons";
+import { StyleSheet } from "react-native";
+import Colors from "../constants/Colors";
+
+const navigationRef = React.createRef();
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+      ref={navigationRef}
+    >
       <RootNavigator />
     </NavigationContainer>
   );
@@ -30,6 +42,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  
   return (
     <Stack.Navigator 
       initialRouteName='Login'
@@ -38,8 +51,14 @@ function RootNavigator() {
       <Stack.Screen name={"Login"} component={LoginScreen} />
       <Stack.Screen name={"Subscribe"} component={SubscribeScreen} />
       <Stack.Screen name="Root" component={BottomTabNavigator} />
-      <Stack.Screen name="Profile" component={ProfileBottomTabNavigator}/>
+      <Stack.Screen
+        name="Profile"
+        component={ProfileBottomTabNavigator}
+      />
+      
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
 }
+
+

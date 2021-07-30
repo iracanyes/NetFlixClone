@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		alignSelf: 'center',
-		backgroundColor: '#222',
-		borderRadius: 5
+		backgroundColor: 'white',
+		borderRadius: 5,
 	},
 	alignVertical: {
 		width: 90,
@@ -35,13 +35,17 @@ const styles = StyleSheet.create({
 	},
 	buttonText: {
 		color: Colors.light.white,
+		
 	},
 	iconPlay: {
-		marginRight: 10
+		marginRight: 10,
+		backgroundColor: Colors.light.background,
+		color: Colors.dark.background
 	},
 	buttonPlayText: {
 		fontSize: 16,
-		fontWeight: 'bold'
+		fontWeight: 'bold',
+		color: Colors.dark.background
 	}
 });
 

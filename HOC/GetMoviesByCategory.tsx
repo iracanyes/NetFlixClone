@@ -45,7 +45,7 @@ const GetMoviesByCategory = (props: IGetMoviesByCategory) => {
 
   return (
     <View>
-      { category && (<PosterList medias={moviesByCategory} title={category.title}/>)}
+      { category && (<PosterList medias={moviesByCategory} category={category}/>)}
     </View>
   );
 };

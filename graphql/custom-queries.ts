@@ -26,6 +26,7 @@ export const listCategoryMovies = /* GraphQL */ `
       items {
         id
         __typename
+        categoryID
         movie {
           id
           __typename
@@ -33,6 +34,32 @@ export const listCategoryMovies = /* GraphQL */ `
           poster
           creator
           trailer
+          plot
+          cast
+          creator
+          year
+          
+        }
+      }
+      nextToken
+    }
+  }
+`;
+
+export const listMovieCategories = /* GraphQL */ `
+  query ListMovieCategorys(
+    $filter: ModelMovieCategoryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMovieCategorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        __typename
+        movieID
+        category {
+          id
+          title
         }
       }
       nextToken

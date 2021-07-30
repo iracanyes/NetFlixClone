@@ -9,16 +9,21 @@ import { IPosterListProps, IEpisode, IMovie } from "../../types/interfaces";
 import PosterItem from "../PosterItem";
 
 const PosterList = (props: IPosterListProps) => {
-	const { medias, title } = props;
+	const { medias, category } = props;
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>{title}</Text>
+			<Text style={styles.title}>{category.title}</Text>
 			{medias !== null && (
 				<FlatList
 					horizontal
 					//@ts-ignore
 					data={medias}
-					renderItem={(item) => <PosterItem item={item.item} />}
+					renderItem={(item) => (
+						<PosterItem
+							item={item.item}
+							category={category}
+						/>
+					)}
 					keyExtractor={item => item.id}
 					style={styles.flatlist}
 					//ListHeaderComponent={() => <Text style={styles.title}>{title}</Text>}
@@ -40,7 +45,7 @@ const styles = StyleSheet.create({
 		width: '100%',
 	},
 	title: {
-		fontSize: 20,
+		fontSize: 18,
 		fontWeight: 'bold',
 		padding: 5,
 		color: 'white'
