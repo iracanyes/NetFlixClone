@@ -5,7 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
-import Amplify, {Auth, Hub} from "aws-amplify";
+import Amplify, {Auth, Hub, Storage} from "aws-amplify";
 import { withAuthenticator } from "aws-amplify-react-native";
 import config from "./aws-exports";
 import Colors from "./constants/Colors";
@@ -16,6 +16,7 @@ Amplify.configure({
     disabled: true
   }
 });
+
 
 function App() {
   const isLoadingComplete = useCachedResources();

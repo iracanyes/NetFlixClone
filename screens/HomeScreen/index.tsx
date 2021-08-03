@@ -15,6 +15,7 @@ import CategoryList from "../../components/CategoryList";
 import {S3Image} from "aws-amplify-react-native";
 import {API, Auth, graphqlOperation} from "aws-amplify";
 import {getMovie} from "../../graphql/queries";
+import VideoPlayer from "../../components/VideoPlayer";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -44,8 +45,7 @@ export default function HomeScreen() {
       
       //@ts-ignore
       if(res.data.getMovie){
-        //@ts-ignore
-        console.log('RecommendedMovie res', res.data.getMovie);
+        
         //@ts-ignore
         setRecommendedMovie(res.data.getMovie);
       }
@@ -54,6 +54,7 @@ export default function HomeScreen() {
     fetchRecommendedMovie();
   }, []);
 
+  
   // @ts-ignore
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -63,16 +64,19 @@ export default function HomeScreen() {
           style={styles.scrollView}
           contentContainerStyle={styles.scrollViewContentContainer}
         >
+          {/*@ts-ignore*/}
           {(recommendedMovie !== null && ('poster' in recommendedMovie)) && (
             <>
-              <S3Image
-                //@
-                imgKey={'poster/' + recommendedMovie.poster}
-                // @ts-ignore
-                style={styles.recommendedMovie}
-                resizeMode={'cover'}
-                identityId={userID}
-              />
+              <View style={styles.recommendedMovie}>
+                <S3Image
+                  //@ts-ignore
+                  imgKey={'poster/' + recommendedMovie.poster}
+                  // @ts-ignore
+                  style={styles.recommendedMovie}
+                  resizeMode={'cover'}
+                  identityId={userID}
+                />
+              </View>
               <MovieActionButtons
                 movie={recommendedMovie}
               />

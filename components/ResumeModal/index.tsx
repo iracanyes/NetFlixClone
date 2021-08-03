@@ -27,19 +27,19 @@ interface IResumeModal{
 const ResumeModal = (props: IResumeModal) => {
   const { item, modalVisibility ,setModalVisibility } = props;
   const navigation = useNavigation();
-  console.log('ResumeModal item', item);
+  
   
   useEffect(()=> {}, []);
   
-  const watchMovie = () => {
+  const _watchMovie = () => {
     console.log("Button play movie pressed!");
   };
   
-  const watchTrailer = () => {
+  const _watchTrailer = () => {
     console.log("Button play trailer pressed!");
   };
   
-  const download = () => {
+  const _download = () => {
     console.log("Button play trailer pressed!");
   };
   
@@ -95,7 +95,7 @@ const ResumeModal = (props: IResumeModal) => {
           <View style={styles.primaryAction}>
             <TouchableOpacity
               style={[styles.button, styles.alignHorizontal, styles.buttonPlay]}
-              onPress={() => watchMovie()}
+              onPress={() => _watchMovie()}
             >
               <Fontisto
                 name={'play'}
@@ -110,6 +110,7 @@ const ResumeModal = (props: IResumeModal) => {
           <View style={styles.secondaryActions}>
             <TouchableOpacity
               style={[styles.button, styles.secondaryButton]}
+              onPress={() => _download()}
             >
               <Entypo
                 name={'download'}
@@ -122,7 +123,7 @@ const ResumeModal = (props: IResumeModal) => {
       
             <TouchableOpacity
               style={[styles.button,styles.secondaryButton]}
-              onPress={() => watchTrailer()}
+              onPress={() => _watchTrailer()}
             >
               <Ionicons
                 name={'play-outline'}

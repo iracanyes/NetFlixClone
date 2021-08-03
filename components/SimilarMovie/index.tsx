@@ -35,12 +35,7 @@ const SimilarMovie = (props: ISimilarMovieProps) => {
           ));
           // @ts-ignore
           if(resCateg.data.listMovieCategorys){
-      
-            console.log(
-              'fetchMoviesByCategory resCateg.data.listMovieCategorys',
-              // @ts-ignore
-              resCateg.data.listMovieCategorys
-            );
+            
             // @ts-ignore
             setMovieCategories(resCateg.data.listMovieCategorys.items);
           }
@@ -50,7 +45,7 @@ const SimilarMovie = (props: ISimilarMovieProps) => {
       }
       
       try{
-        console.log('listCategoryMovies movieCategories', movieCategories);
+        
         if(movieCategories.length > 0){
           // Find similar movies by category
           const res = await API.graphql(graphqlOperation(
@@ -66,8 +61,7 @@ const SimilarMovie = (props: ISimilarMovieProps) => {
   
           //@ts-ignore
           if(res.data.listMovieCategorys){
-            //@ts-ignore
-            console.log('fetchMoviesByCategory res', res.data.listMovieCategorys);
+            
             //@ts-ignore
             setMoviesByCategory(res.data.listMovieCategorys.items);
           }

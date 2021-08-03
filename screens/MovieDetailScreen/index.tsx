@@ -12,6 +12,7 @@ import {Entypo, Feather, FontAwesome5, Fontisto, MaterialIcons, SimpleLineIcons}
 import Colors from "../../constants/Colors";
 import {SimilarMovie} from "../../components";
 import {S3Image} from "aws-amplify-react-native";
+import VideoPlayer from "../../components/VideoPlayer";
 
 const MovieDetailScreen = () => {
   const route = useRoute();
@@ -43,11 +44,9 @@ const MovieDetailScreen = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View>
-          <S3Image
-            imgKey={'poster/'+ data.poster}
-            // @ts-ignore
-            style={styles.poster}
-            resizeMode={'cover'}
+          <VideoPlayer
+            data={data}
+            videoType={'trailer'}
           />
         </View>
         <View style={styles.header}>

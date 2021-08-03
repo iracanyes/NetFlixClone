@@ -33,6 +33,7 @@ const MovieActionButtons = (props: IMovieActionButtonsProps ) => {
         'MovieDetail',
         {
           data: movie,
+          //@ts-ignore
           categoryID: movie.movieCategories.items[0].categoryID
         }
       );

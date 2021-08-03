@@ -15,7 +15,7 @@ import ResumeModal from "./ResumeModal";
 
 const PosterItem = (props: IPosterItemProps) => {
   const { item, category } = props;
-  //console.log('PosterItem item', item);
+  
   const navigation = useNavigation();
   const [ userID, setUserID ] = useState(null);
   const [ modalVisibility, setModalVisibility ] = useState(false);

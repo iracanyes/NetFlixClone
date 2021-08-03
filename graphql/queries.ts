@@ -54,6 +54,7 @@ export const getMovie = /* GraphQL */ `
       cast
       creator
       trailer
+      video
       movieCategories {
         items {
           id
@@ -106,6 +107,7 @@ export const listMovies = /* GraphQL */ `
         cast
         creator
         trailer
+        video
         movieCategories {
           nextToken
         }
@@ -147,6 +149,7 @@ export const getMovieCategory = /* GraphQL */ `
         cast
         creator
         trailer
+        video
         movieCategories {
           nextToken
         }
@@ -191,6 +194,7 @@ export const listMovieCategorys = /* GraphQL */ `
           cast
           creator
           trailer
+          video
           createdAt
           updatedAt
         }
@@ -217,6 +221,7 @@ export const getSeason = /* GraphQL */ `
         cast
         creator
         trailer
+        video
         movieCategories {
           nextToken
         }
@@ -269,6 +274,7 @@ export const listSeasons = /* GraphQL */ `
           cast
           creator
           trailer
+          video
           createdAt
           updatedAt
         }
@@ -306,6 +312,7 @@ export const getEpisode = /* GraphQL */ `
           cast
           creator
           trailer
+          video
           createdAt
           updatedAt
         }
@@ -429,6 +436,7 @@ export const getWatched = /* GraphQL */ `
         cast
         creator
         trailer
+        video
         movieCategories {
           nextToken
         }
@@ -478,6 +486,7 @@ export const listWatcheds = /* GraphQL */ `
           cast
           creator
           trailer
+          video
           createdAt
           updatedAt
         }

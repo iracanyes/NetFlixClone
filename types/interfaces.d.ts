@@ -45,6 +45,9 @@ export interface IMovie {
 	__typename: 'Movie';
 	title: string;
 	poster: string;
+	trailer: string;
+	video: string;
+	duration: string;
 	year: string;
 	numberOfSeasons: string;
 	plot: string;
@@ -106,4 +109,9 @@ export interface IGetMoviesByCategory {
 export interface ISimilarMovieProps {
 	movie: IMovie
 	categoryID: string;
+}
+
+export interface IVideoPlayerProps {
+	data: IMovie|IEpisode
+	videoType: string;
 }

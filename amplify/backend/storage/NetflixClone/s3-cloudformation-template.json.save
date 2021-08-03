@@ -310,7 +310,7 @@
 											{
 												"Ref": "S3Bucket"
 											},
-											"/protected/*"
+											"/protected/${cognito-identity.amazonaws.com:sub}/*"
 										]
 									]
 								}

@@ -74,6 +74,7 @@ export const onCreateMovie = /* GraphQL */ `
       cast
       creator
       trailer
+      video
       movieCategories {
         items {
           id
@@ -121,6 +122,7 @@ export const onUpdateMovie = /* GraphQL */ `
       cast
       creator
       trailer
+      video
       movieCategories {
         items {
           id
@@ -168,6 +170,7 @@ export const onDeleteMovie = /* GraphQL */ `
       cast
       creator
       trailer
+      video
       movieCategories {
         items {
           id
@@ -228,6 +231,7 @@ export const onCreateMovieCategory = /* GraphQL */ `
         cast
         creator
         trailer
+        video
         movieCategories {
           nextToken
         }
@@ -270,6 +274,7 @@ export const onUpdateMovieCategory = /* GraphQL */ `
         cast
         creator
         trailer
+        video
         movieCategories {
           nextToken
         }
@@ -312,6 +317,7 @@ export const onDeleteMovieCategory = /* GraphQL */ `
         cast
         creator
         trailer
+        video
         movieCategories {
           nextToken
         }
@@ -345,6 +351,7 @@ export const onCreateSeason = /* GraphQL */ `
         cast
         creator
         trailer
+        video
         movieCategories {
           nextToken
         }
@@ -392,6 +399,7 @@ export const onUpdateSeason = /* GraphQL */ `
         cast
         creator
         trailer
+        video
         movieCategories {
           nextToken
         }
@@ -439,6 +447,7 @@ export const onDeleteSeason = /* GraphQL */ `
         cast
         creator
         trailer
+        video
         movieCategories {
           nextToken
         }
@@ -494,6 +503,7 @@ export const onCreateEpisode = /* GraphQL */ `
           cast
           creator
           trailer
+          video
           createdAt
           updatedAt
         }
@@ -532,6 +542,7 @@ export const onUpdateEpisode = /* GraphQL */ `
           cast
           creator
           trailer
+          video
           createdAt
           updatedAt
         }
@@ -570,6 +581,7 @@ export const onDeleteEpisode = /* GraphQL */ `
           cast
           creator
           trailer
+          video
           createdAt
           updatedAt
         }
@@ -689,6 +701,7 @@ export const onCreateWatched = /* GraphQL */ `
         cast
         creator
         trailer
+        video
         movieCategories {
           nextToken
         }
@@ -736,6 +749,7 @@ export const onUpdateWatched = /* GraphQL */ `
         cast
         creator
         trailer
+        video
         movieCategories {
           nextToken
         }
@@ -783,6 +797,7 @@ export const onDeleteWatched = /* GraphQL */ `
         cast
         creator
         trailer
+        video
         movieCategories {
           nextToken
         }

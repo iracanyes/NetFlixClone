@@ -17,9 +17,14 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
+	recommendedMovieContainer: {
+		width: '98%',
+		height: 300
+	},
 	recommendedMovie: {
 		width: '100%',
-		height: 400,
+		height: 370,
+		resizeMode: 'cover'
 	},
   separator: {
     marginVertical: 0,

@@ -11,6 +11,7 @@ const GetMoviesByCategory = (props: IGetMoviesByCategory) => {
   const { category } = props;
   const [ moviesByCategory, setMoviesByCategory ] = useState(null);
 
+  // Get All movies from a category
   useEffect(() => {
     const fetchMoviesByCategory = async () => {
       try{
@@ -25,16 +26,16 @@ const GetMoviesByCategory = (props: IGetMoviesByCategory) => {
           }
         ));
         // @ts-ignore
-        console.log('GetMoviesByCategory useEffect res', res.data)
+        //console.log('GetMoviesByCategory useEffect res', res.data)
         // @ts-ignore
         if(res.data.listMovieCategorys){
           // @ts-ignore
-          console.log('GetMoviesByCategory useEffect res', res.data.listMovieCategorys)
+          //console.log('GetMoviesByCategory useEffect res', res.data.listMovieCategorys)
           // @ts-ignore
           setMoviesByCategory(res.data.listMovieCategorys.items);
         }
       }catch (e) {
-        console.log('GetMoviesByCategory useEffect res error', e);
+        console.warn('GetMoviesByCategory useEffect res error', e);
       }
       
       

@@ -13,6 +13,7 @@ import Colors from "../../constants/Colors";
 const CategoryList = () => {
   const [ categories, setCategories ] = useState([]);
   
+  // Get All categories
   useEffect(() => {
     const fetchCategories = async () => {
       try{
@@ -20,8 +21,7 @@ const CategoryList = () => {
   
         // @ts-ignore
         if(res.data.listCategorys){
-          // @ts-ignore
-          console.log('CategoryList useEffect res.data', res.data.listCategorys);
+          
           // @ts-ignore
           setCategories(res.data.listCategorys.items);
         }
@@ -32,6 +32,7 @@ const CategoryList = () => {
     
     fetchCategories();
   }, []);
+  
   return (
     <View style={styles.container}>
       { categories.length > 0 && categories.map((item: ICategory) => (

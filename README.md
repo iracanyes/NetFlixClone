@@ -1,4 +1,4 @@
-# NetflixClone App
+# NetflixClone App 
 
 ## Informations
 
@@ -14,6 +14,12 @@ GraphQL endpoint: <https://53gsinyusfhnxe64566svrnh3a.appsync-api.eu-west-1.amaz
 Hosted UI Endpoint: <https://netflixclonefb34748f-fb34748f-dev.auth.eu-west-1.amazoncognito.com/>
 Test Your Hosted UI Endpoint: <https://netflixclonefb34748f-fb34748f-dev.auth.eu-west-1.amazoncognito.com/login?response_type=code&client_id=7blm55tl0p4bcilfg0gpf2s9it&redirect_uri=https://localhost:19000/>
 
+### To Do
+- MovieDetail component for series
+- Episode component
+- Dropdown picker for seasons 
+  - add @react-native-picker/picker
+- 
 ## Remaques
 #### AWS S3 bucket 
 S3Image - Image doesn't appear

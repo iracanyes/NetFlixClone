@@ -23,7 +23,7 @@ type Movie
   creator: String
 
   trailer: String
-  #video: String
+  video: String
 
   movieCategories: [MovieCategory] @connection(keyName:"byMovie", fields:["id"])
   watched: [Watched] @connection(keyName:"byMovie", fields:["id"])

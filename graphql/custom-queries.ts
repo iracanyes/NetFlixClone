@@ -38,7 +38,7 @@ export const listCategoryMovies = /* GraphQL */ `
           cast
           creator
           year
-          
+          video
         }
       }
       nextToken
