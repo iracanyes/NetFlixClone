@@ -26,3 +26,6 @@ S3Image - Image doesn't appear
 S3 Bucket : All public files must be in a directory "public/".
 Because Storage.get() add a prefix 'public/' on the key example "s3Directory/publicfile.ext"
 if the level of protection is public.
+
+#### Video player
+Component ``expo-av`` doesn't support ``.avi`` video file extension!

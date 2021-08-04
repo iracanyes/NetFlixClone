@@ -5,6 +5,7 @@ type Category
   title: String!
 
   categoryMovies: [MovieCategory] @connection(keyName:"byCategory", fields:["id"])
+  categorySeries: [SerieCategory] @connection(keyName:"byCategory", fields:["id"])
 }
 
 type Movie
@@ -30,6 +31,29 @@ type Movie
   seasons: [Season] @connection(keyName: "byMovie", fields: ["id"])
 }
 
+type Serie
+@model
+{
+  id: ID!
+  title: String!
+  poster: String!
+  year: Int
+  numberOfSeasons: Int
+
+  # Synopsis
+  plot: String
+  # Casting
+  cast: String
+  creator: String
+
+  trailer: String
+  video: String
+
+  serieCategories: [SerieCategory] @connection(keyName:"bySerie", fields:["id"])
+  watched: [Watched] @connection(keyName:"bySerie", fields:["id"])
+  seasons: [Season] @connection(keyName: "bySerie", fields: ["id"])
+}
+
 type MovieCategory
 @key(name:"byMovie", fields:["movieID","categoryID"])
 @key(name:"byCategory", fields:["categoryID","movieID"])
@@ -43,16 +67,33 @@ type MovieCategory
   movie: Movie @connection(fields:["movieID"])
 }
 
+type SerieCategory
+@key(name:"bySerie", fields:["serieID","categoryID"])
+@key(name:"byCategory", fields:["categoryID","serieID"])
+@model
+{
+  id: ID!
+  categoryID: ID!
+  serieID: ID!
+
+  category: Category @connection(fields:["categoryID"])
+  serie: Serie @connection(fields:["serieID"])
+}
+
 type Season 
 @model
 @key(name:"byMovie", fields: ["movieID"])
+@key(name:"bySerie", fields:["serieID"])
 {
   id: ID!
   name: String!
   
-  movieID: ID!
+  movieID: ID
   movie: Movie @connection(fields: ["movieID"])
 
+
+  serieID: ID
+  serie: Serie @connection(fields:["serieID"])
 
   episodes: [Episode] @connection(keyName: "bySeason", fields: ["id"])
 }
@@ -88,7 +129,8 @@ type User
 
 type Watched
 @key(name:"byUser", fields:["userID"])
-@key(name:"byMovie", fields:["movieID"])
+@key(name:"byMovie", fields:["movieID","userID"])
+@key(name:"bySerie", fields:["serieID","userID"])
 @model
 {
   id: ID!
@@ -96,8 +138,12 @@ type Watched
   userID: ID!
   user: User @connection(fields:["userID"])
 
-  movieID: ID!
+  movieID: ID
   movie: Movie @connection(fields:["movieID"])
+
+  serieID: ID
+  serie: Serie @connection(fields:["serieID"])
+
 }
 
 

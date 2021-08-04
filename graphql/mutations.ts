@@ -20,6 +20,16 @@ export const createCategory = /* GraphQL */ `
         }
         nextToken
       }
+      categorySeries {
+        items {
+          id
+          categoryID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -43,6 +53,16 @@ export const updateCategory = /* GraphQL */ `
         }
         nextToken
       }
+      categorySeries {
+        items {
+          id
+          categoryID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -61,6 +81,16 @@ export const deleteCategory = /* GraphQL */ `
           id
           categoryID
           movieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      categorySeries {
+        items {
+          id
+          categoryID
+          serieID
           createdAt
           updatedAt
         }
@@ -102,6 +132,7 @@ export const createMovie = /* GraphQL */ `
           id
           userID
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -112,6 +143,7 @@ export const createMovie = /* GraphQL */ `
           id
           name
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -153,6 +185,7 @@ export const updateMovie = /* GraphQL */ `
           id
           userID
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -163,6 +196,7 @@ export const updateMovie = /* GraphQL */ `
           id
           name
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -204,6 +238,7 @@ export const deleteMovie = /* GraphQL */ `
           id
           userID
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -214,6 +249,166 @@ export const deleteMovie = /* GraphQL */ `
           id
           name
           movieID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createSerie = /* GraphQL */ `
+  mutation CreateSerie(
+    $input: CreateSerieInput!
+    $condition: ModelSerieConditionInput
+  ) {
+    createSerie(input: $input, condition: $condition) {
+      id
+      title
+      poster
+      year
+      numberOfSeasons
+      plot
+      cast
+      creator
+      trailer
+      video
+      serieCategories {
+        items {
+          id
+          categoryID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      watched {
+        items {
+          id
+          userID
+          movieID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      seasons {
+        items {
+          id
+          name
+          movieID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateSerie = /* GraphQL */ `
+  mutation UpdateSerie(
+    $input: UpdateSerieInput!
+    $condition: ModelSerieConditionInput
+  ) {
+    updateSerie(input: $input, condition: $condition) {
+      id
+      title
+      poster
+      year
+      numberOfSeasons
+      plot
+      cast
+      creator
+      trailer
+      video
+      serieCategories {
+        items {
+          id
+          categoryID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      watched {
+        items {
+          id
+          userID
+          movieID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      seasons {
+        items {
+          id
+          name
+          movieID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteSerie = /* GraphQL */ `
+  mutation DeleteSerie(
+    $input: DeleteSerieInput!
+    $condition: ModelSerieConditionInput
+  ) {
+    deleteSerie(input: $input, condition: $condition) {
+      id
+      title
+      poster
+      year
+      numberOfSeasons
+      plot
+      cast
+      creator
+      trailer
+      video
+      serieCategories {
+        items {
+          id
+          categoryID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      watched {
+        items {
+          id
+          userID
+          movieID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      seasons {
+        items {
+          id
+          name
+          movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -237,6 +432,9 @@ export const createMovieCategory = /* GraphQL */ `
         id
         title
         categoryMovies {
+          nextToken
+        }
+        categorySeries {
           nextToken
         }
         createdAt
@@ -285,6 +483,9 @@ export const updateMovieCategory = /* GraphQL */ `
         categoryMovies {
           nextToken
         }
+        categorySeries {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -331,6 +532,9 @@ export const deleteMovieCategory = /* GraphQL */ `
         categoryMovies {
           nextToken
         }
+        categorySeries {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -346,6 +550,153 @@ export const deleteMovieCategory = /* GraphQL */ `
         trailer
         video
         movieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createSerieCategory = /* GraphQL */ `
+  mutation CreateSerieCategory(
+    $input: CreateSerieCategoryInput!
+    $condition: ModelSerieCategoryConditionInput
+  ) {
+    createSerieCategory(input: $input, condition: $condition) {
+      id
+      categoryID
+      serieID
+      category {
+        id
+        title
+        categoryMovies {
+          nextToken
+        }
+        categorySeries {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateSerieCategory = /* GraphQL */ `
+  mutation UpdateSerieCategory(
+    $input: UpdateSerieCategoryInput!
+    $condition: ModelSerieCategoryConditionInput
+  ) {
+    updateSerieCategory(input: $input, condition: $condition) {
+      id
+      categoryID
+      serieID
+      category {
+        id
+        title
+        categoryMovies {
+          nextToken
+        }
+        categorySeries {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteSerieCategory = /* GraphQL */ `
+  mutation DeleteSerieCategory(
+    $input: DeleteSerieCategoryInput!
+    $condition: ModelSerieCategoryConditionInput
+  ) {
+    deleteSerieCategory(input: $input, condition: $condition) {
+      id
+      categoryID
+      serieID
+      category {
+        id
+        title
+        categoryMovies {
+          nextToken
+        }
+        categorySeries {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
           nextToken
         }
         watched {
@@ -383,6 +734,30 @@ export const createSeason = /* GraphQL */ `
         trailer
         video
         movieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      serieID
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
           nextToken
         }
         watched {
@@ -445,6 +820,30 @@ export const updateSeason = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      serieID
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       episodes {
         items {
           id
@@ -485,6 +884,30 @@ export const deleteSeason = /* GraphQL */ `
         trailer
         video
         movieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      serieID
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
           nextToken
         }
         watched {
@@ -546,6 +969,21 @@ export const createEpisode = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        serieID
+        serie {
+          id
+          title
+          poster
+          year
+          numberOfSeasons
+          plot
+          cast
+          creator
+          trailer
+          video
+          createdAt
+          updatedAt
+        }
         episodes {
           nextToken
         }
@@ -575,6 +1013,21 @@ export const updateEpisode = /* GraphQL */ `
         name
         movieID
         movie {
+          id
+          title
+          poster
+          year
+          numberOfSeasons
+          plot
+          cast
+          creator
+          trailer
+          video
+          createdAt
+          updatedAt
+        }
+        serieID
+        serie {
           id
           title
           poster
@@ -630,6 +1083,21 @@ export const deleteEpisode = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        serieID
+        serie {
+          id
+          title
+          poster
+          year
+          numberOfSeasons
+          plot
+          cast
+          creator
+          trailer
+          video
+          createdAt
+          updatedAt
+        }
         episodes {
           nextToken
         }
@@ -659,6 +1127,7 @@ export const createUser = /* GraphQL */ `
           id
           userID
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -687,6 +1156,7 @@ export const updateUser = /* GraphQL */ `
           id
           userID
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -715,6 +1185,7 @@ export const deleteUser = /* GraphQL */ `
           id
           userID
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -760,6 +1231,30 @@ export const createWatched = /* GraphQL */ `
         trailer
         video
         movieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      serieID
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
           nextToken
         }
         watched {
@@ -822,6 +1317,30 @@ export const updateWatched = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      serieID
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -862,6 +1381,30 @@ export const deleteWatched = /* GraphQL */ `
         trailer
         video
         movieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      serieID
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
           nextToken
         }
         watched {

@@ -30,6 +30,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
     <NavigationContainer
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+      // @ts-ignore
       ref={navigationRef}
     >
       <RootNavigator />

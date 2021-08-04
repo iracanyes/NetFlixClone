@@ -5,6 +5,7 @@ import {Auth, Storage} from "aws-amplify";
 import {IVideoPlayerProps} from "../../types/interfaces";
 import * as ScreenOrientation from "expo-screen-orientation";
 import styles from "./styles";
+import MultiSlider from "2";
 
 Storage.configure({
   [Storage.getModuleName()]: {
@@ -17,15 +18,20 @@ Storage.configure({
 });
 
 const VideoPlayer = (props: IVideoPlayerProps) => {
-  const { data, videoType } = props;
+  const {
+    data,
+    videoType,
+    playButtonPressed,
+    setPlayButtonPressed,
+  } = props;
   const [ videoUrl , setVideoUrl ] = useState<string|null|undefined>(null);
-  const [ playerState, setPlayerState ] = useState({});
+  const [ status, setStatus ] = useState<AVPlaybackStatus|{}>({});
   const [ isLoading, setIsLoading ] = useState(true);
   const [ isPlaying, setIsPlaying ] = useState(false);
   const [ isBuffering, setIsBuffering ] = useState(false);
   const [ paused, setPaused ] = useState(false);
   const [ currentTime, setCurrentTime ] = useState(0);
-  const [ duration, setDuration ] = useState(data.duration);
+  const [ duration, setDuration ] = useState(0);
   const _videoRef = React.useRef<Video>();
   const videoPlayer  = _videoRef.current ? _videoRef.current : null;
   const initialStatus = {
@@ -38,6 +44,7 @@ const VideoPlayer = (props: IVideoPlayerProps) => {
     isMuted: false,
     isLooping: false,
   };
+  
   
   
   const getVideoUri = () => {
@@ -60,7 +67,7 @@ const VideoPlayer = (props: IVideoPlayerProps) => {
   
   const getVideoUrl = async () => {
     const orientation = await ScreenOrientation.getOrientationAsync();
-    console.log("Screen orientation",  orientation);
+    
     const userID = await Auth.currentAuthenticatedUser();
   
     const res = await Storage.get(
@@ -73,7 +80,7 @@ const VideoPlayer = (props: IVideoPlayerProps) => {
       }
     );
   
-    console.log('Storage.get url', res);
+    //console.log('Storage.get url', res);
     if(typeof res === "string"){
       setVideoUrl(res);
     }
@@ -84,20 +91,47 @@ const VideoPlayer = (props: IVideoPlayerProps) => {
   
   
   // This function is triggered when the user interact with the player slider.
-  const onSeeking = (currentVideoTime: number) => setCurrentTime(currentVideoTime);
+  //const onSeeking = (currentVideoTime: number) => setCurrentTime(currentVideoTime);
   
-  // This function is triggered when the play/pause button is pressed.
-  const onPaused = (newState: any) => {
-    setPaused(!paused);
-    setPlayerState(newState);
-  };
   
   // This function is triggered while the video is playing.
   const onProgress = (data: { currentTime: React.SetStateAction<number>; }) => {
     if(!isLoading){
+      
       setCurrentTime(data.currentTime);
     }
   };
+  
+  /* Play movie */
+  const playMovie = async () => {
+    //console.log("Play movie: data", data);
+    try{
+      if(data.video){
+        const user = await Auth.currentAuthenticatedUser();
+        
+        const videoUrl = await Storage.get(data.video, {
+          level: 'public',
+          identityID: user.attributes.sub
+        });
+        
+        //console.log('Play the film : Storage.get videoUrl', videoUrl);
+        
+        const res = await videoPlayer?.unloadAsync();
+        
+        if(typeof videoUrl === 'string'){
+          await videoPlayer?.loadAsync(
+            {uri: videoUrl },
+            initialStatus
+          );
+        }
+        //console.log('Play the film : videoPlayer.loadAsync', res);
+      }
+    }catch (e) {
+      console.warn("Error while loading the film", e);
+    }
+    
+  };
+  
   
   // fetch video URL from AWS S3
   useEffect(() => {
@@ -113,11 +147,13 @@ const VideoPlayer = (props: IVideoPlayerProps) => {
     
     fetchVideoUrl();
     
-  },[]);
+  },[data]);
   
   // Load video to video player
   useEffect(()=> {
+    
     const loadVideo = async () => {
+      await videoPlayer?.unloadAsync();
       const source = {
         uri: videoUrl,
       };
@@ -134,7 +170,7 @@ const VideoPlayer = (props: IVideoPlayerProps) => {
             false
           );
           
-          console.log('videoPlayer.loadAsync', res);
+          //console.log('videoPlayer.loadAsync', res);
         }
       }catch (e) {
         console.warn("videoPlayer.loadAsync", e);
@@ -149,35 +185,21 @@ const VideoPlayer = (props: IVideoPlayerProps) => {
     
   }, [ videoUrl]);
   
-  /*  */
-  const playMovie = async () => {
-    console.log("Play movie: data", data);
-    try{
-      if(data.video){
-        const user = await Auth.currentAuthenticatedUser();
+  // This function is triggered when the play/pause button is pressed.
+  // Play/Pause
+  useEffect(() => {
+    const handlePlayButton = async () => {
+      if(playButtonPressed){
         
-        const videoUrl = await Storage.get(data.video, {
-          level: 'public',
-          identityID: user.attributes.sub
-        });
-        
-        console.log('Play the film : Storage.get videoUrl', videoUrl);
-        
-        const res = await videoPlayer?.unloadAsync();
-        
-        if(typeof videoUrl === 'string'){
-          await videoPlayer?.loadAsync(
-            {uri: videoUrl },
-            initialStatus
-          );
-        }
-        console.log('Play the film : videoPlayer.loadAsync', res);
+        playMovie();
+      }else{
+        await videoPlayer?.pauseAsync();
       }
-    }catch (e) {
-      console.warn("Error while loading the film", e);
-    }
-    
-  };
+    };
+    handlePlayButton();
+  }, [playButtonPressed]);
+  
+  
   
   /* Handle video player status change */
   const _handleStatusUpdate = (status: AVPlaybackStatus) => {
@@ -187,7 +209,7 @@ const VideoPlayer = (props: IVideoPlayerProps) => {
       // Le lecteur charge plusieurs séquences en mm temps
       // Ici, on peut écrire le code à exécuter au chargement de chaque séquence!
       //console.log("Vioeo is loading!");
-      //setIsLoaded(false);
+      
       
       // En cas d'erreur de chargement d'une séquence de la vidéo, on affiche l'erreur!
       if(status.error){
@@ -202,7 +224,12 @@ const VideoPlayer = (props: IVideoPlayerProps) => {
       
       
       if(status.isPlaying){
-        setIsPlaying(true);
+        !isPlaying && setIsPlaying(true);
+        
+        setCurrentTime(status.positionMillis);
+        // set duration of the movie if not set
+        (duration === 0 && status.durationMillis) && setDuration(status.durationMillis);
+        
       }else{
         //console.log("Button pause pressed!");
         setPaused(true);
@@ -210,17 +237,21 @@ const VideoPlayer = (props: IVideoPlayerProps) => {
       
       if(status.isBuffering){
         // Update UI buffering state
+        
       }
       
       if(status.didJustFinish && !status.isLooping){
         // The player has just finished playing and will stop. Maybe you want to play something else?
         // Show progress bar 5s before start of the movie
-        console.log("Please play another movie");
+        //console.log("Please play another movie");
         // Start the movie
-        playMovie();
+        if(data.__typename === "Movie" && videoType === "trailer"){
+          playMovie();
+        }
       }
       
     }
+    setStatus(status);
     
   };
   
@@ -234,13 +265,24 @@ const VideoPlayer = (props: IVideoPlayerProps) => {
         style={styles.videoPlayer}
         usePoster={true}
         posterSource={{uri: data.poster}}
-        posterStyle={styles.videoPlayer}
+        posterStyle={styles.poster}
         useNativeControls={true}
         resizeMode={"cover"}
         onPlaybackStatusUpdate={status => _handleStatusUpdate(status)}
         onProgress={onProgress}
         
       />
+      <View style={styles.playerControls}>
+        
+        {isPlaying && (
+          <MultiSlider
+            values={[(currentTime / duration * 100)]}
+            sliderLength={300}
+            min={0}
+            max={100}
+          />
+        )}
+      </View>
       
     </View>
   );

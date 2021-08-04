@@ -17,6 +17,16 @@ export const onCreateCategory = /* GraphQL */ `
         }
         nextToken
       }
+      categorySeries {
+        items {
+          id
+          categoryID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -37,6 +47,16 @@ export const onUpdateCategory = /* GraphQL */ `
         }
         nextToken
       }
+      categorySeries {
+        items {
+          id
+          categoryID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -52,6 +72,16 @@ export const onDeleteCategory = /* GraphQL */ `
           id
           categoryID
           movieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      categorySeries {
+        items {
+          id
+          categoryID
+          serieID
           createdAt
           updatedAt
         }
@@ -90,6 +120,7 @@ export const onCreateMovie = /* GraphQL */ `
           id
           userID
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -100,6 +131,7 @@ export const onCreateMovie = /* GraphQL */ `
           id
           name
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -138,6 +170,7 @@ export const onUpdateMovie = /* GraphQL */ `
           id
           userID
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -148,6 +181,7 @@ export const onUpdateMovie = /* GraphQL */ `
           id
           name
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -186,6 +220,7 @@ export const onDeleteMovie = /* GraphQL */ `
           id
           userID
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -196,6 +231,157 @@ export const onDeleteMovie = /* GraphQL */ `
           id
           name
           movieID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateSerie = /* GraphQL */ `
+  subscription OnCreateSerie {
+    onCreateSerie {
+      id
+      title
+      poster
+      year
+      numberOfSeasons
+      plot
+      cast
+      creator
+      trailer
+      video
+      serieCategories {
+        items {
+          id
+          categoryID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      watched {
+        items {
+          id
+          userID
+          movieID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      seasons {
+        items {
+          id
+          name
+          movieID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateSerie = /* GraphQL */ `
+  subscription OnUpdateSerie {
+    onUpdateSerie {
+      id
+      title
+      poster
+      year
+      numberOfSeasons
+      plot
+      cast
+      creator
+      trailer
+      video
+      serieCategories {
+        items {
+          id
+          categoryID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      watched {
+        items {
+          id
+          userID
+          movieID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      seasons {
+        items {
+          id
+          name
+          movieID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteSerie = /* GraphQL */ `
+  subscription OnDeleteSerie {
+    onDeleteSerie {
+      id
+      title
+      poster
+      year
+      numberOfSeasons
+      plot
+      cast
+      creator
+      trailer
+      video
+      serieCategories {
+        items {
+          id
+          categoryID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      watched {
+        items {
+          id
+          userID
+          movieID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      seasons {
+        items {
+          id
+          name
+          movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -216,6 +402,9 @@ export const onCreateMovieCategory = /* GraphQL */ `
         id
         title
         categoryMovies {
+          nextToken
+        }
+        categorySeries {
           nextToken
         }
         createdAt
@@ -261,6 +450,9 @@ export const onUpdateMovieCategory = /* GraphQL */ `
         categoryMovies {
           nextToken
         }
+        categorySeries {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -304,6 +496,9 @@ export const onDeleteMovieCategory = /* GraphQL */ `
         categoryMovies {
           nextToken
         }
+        categorySeries {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -319,6 +514,144 @@ export const onDeleteMovieCategory = /* GraphQL */ `
         trailer
         video
         movieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateSerieCategory = /* GraphQL */ `
+  subscription OnCreateSerieCategory {
+    onCreateSerieCategory {
+      id
+      categoryID
+      serieID
+      category {
+        id
+        title
+        categoryMovies {
+          nextToken
+        }
+        categorySeries {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateSerieCategory = /* GraphQL */ `
+  subscription OnUpdateSerieCategory {
+    onUpdateSerieCategory {
+      id
+      categoryID
+      serieID
+      category {
+        id
+        title
+        categoryMovies {
+          nextToken
+        }
+        categorySeries {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteSerieCategory = /* GraphQL */ `
+  subscription OnDeleteSerieCategory {
+    onDeleteSerieCategory {
+      id
+      categoryID
+      serieID
+      category {
+        id
+        title
+        categoryMovies {
+          nextToken
+        }
+        categorySeries {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
           nextToken
         }
         watched {
@@ -353,6 +686,30 @@ export const onCreateSeason = /* GraphQL */ `
         trailer
         video
         movieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      serieID
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
           nextToken
         }
         watched {
@@ -412,6 +769,30 @@ export const onUpdateSeason = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      serieID
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       episodes {
         items {
           id
@@ -449,6 +830,30 @@ export const onDeleteSeason = /* GraphQL */ `
         trailer
         video
         movieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      serieID
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
           nextToken
         }
         watched {
@@ -507,6 +912,21 @@ export const onCreateEpisode = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        serieID
+        serie {
+          id
+          title
+          poster
+          year
+          numberOfSeasons
+          plot
+          cast
+          creator
+          trailer
+          video
+          createdAt
+          updatedAt
+        }
         episodes {
           nextToken
         }
@@ -533,6 +953,21 @@ export const onUpdateEpisode = /* GraphQL */ `
         name
         movieID
         movie {
+          id
+          title
+          poster
+          year
+          numberOfSeasons
+          plot
+          cast
+          creator
+          trailer
+          video
+          createdAt
+          updatedAt
+        }
+        serieID
+        serie {
           id
           title
           poster
@@ -585,6 +1020,21 @@ export const onDeleteEpisode = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        serieID
+        serie {
+          id
+          title
+          poster
+          year
+          numberOfSeasons
+          plot
+          cast
+          creator
+          trailer
+          video
+          createdAt
+          updatedAt
+        }
         episodes {
           nextToken
         }
@@ -611,6 +1061,7 @@ export const onCreateUser = /* GraphQL */ `
           id
           userID
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -636,6 +1087,7 @@ export const onUpdateUser = /* GraphQL */ `
           id
           userID
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -661,6 +1113,7 @@ export const onDeleteUser = /* GraphQL */ `
           id
           userID
           movieID
+          serieID
           createdAt
           updatedAt
         }
@@ -703,6 +1156,30 @@ export const onCreateWatched = /* GraphQL */ `
         trailer
         video
         movieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      serieID
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
           nextToken
         }
         watched {
@@ -762,6 +1239,30 @@ export const onUpdateWatched = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      serieID
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -799,6 +1300,30 @@ export const onDeleteWatched = /* GraphQL */ `
         trailer
         video
         movieCategories {
+          nextToken
+        }
+        watched {
+          nextToken
+        }
+        seasons {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      serieID
+      serie {
+        id
+        title
+        poster
+        year
+        numberOfSeasons
+        plot
+        cast
+        creator
+        trailer
+        video
+        serieCategories {
           nextToken
         }
         watched {

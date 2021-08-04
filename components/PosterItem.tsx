@@ -14,7 +14,7 @@ import {Auth} from "aws-amplify";
 import ResumeModal from "./ResumeModal";
 
 const PosterItem = (props: IPosterItemProps) => {
-  const { item, category } = props;
+  const { item, category, scrollTop } = props;
   
   const navigation = useNavigation();
   const [ userID, setUserID ] = useState(null);
@@ -75,9 +75,11 @@ const PosterItem = (props: IPosterItemProps) => {
         )}
       </TouchableOpacity>
       <ResumeModal
+        // @ts-ignore
         item={ item.__typename === "MovieCategory" ? item.movie : item }
         modalVisibility={modalVisibility}
         setModalVisibility={setModalVisibility}
+        scrollTop={scrollTop}
       />
     </View>
   );

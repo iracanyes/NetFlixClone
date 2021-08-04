@@ -83,6 +83,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  footer: {
+    marginVertical: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  buttonGoTop: {
+    width: 100,
+    height: 50,
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
+    borderRadius: 50
+  },
+  buttonGoTopText: {
+    fontWeight: 'bold',
+    color: Colors.dark.background,
+    backgroundColor: Colors.dark.tintFirst
+  }
 });
 
 export default {...globalStyles,...styles};

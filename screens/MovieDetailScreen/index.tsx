@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useRef, useState} from "react";
 import { SafeAreaView} from "react-native-safe-area-context";
 import {
   Text,
@@ -6,22 +6,40 @@ import {
   View,
   ScrollView
 } from "react-native";
-import {useNavigation, useRoute} from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import styles from "./styles";
 import {Entypo, Feather, FontAwesome5, Fontisto, MaterialIcons, SimpleLineIcons} from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import {SimilarMovie} from "../../components";
-import {S3Image} from "aws-amplify-react-native";
 import VideoPlayer from "../../components/VideoPlayer";
 
 const MovieDetailScreen = () => {
   const route = useRoute();
   //@ts-ignore
   const { data, categoryID } = route.params;
+  const [ playButtonPressed, setPlayButtonPressed] = useState(false);
+  // Reference to ScrollView of this screen
+  // used by ResumeModal component after navigating the same route for scrolling to top of this scroll view
+  const scrollViewRef = useRef<ScrollView>(null);
   
-  const watchMovie = () => {
-    console.log("Button watch movie pressed!");
+  const scrollTop = () => {
+    // @ts-ignore
+    scrollViewRef !== null && scrollViewRef.current.scrollTo({
+      x: 0,
+      y: 0,
+      animated: true
+    });
   };
+  
+  
+  const playMovie = () => {
+    setPlayButtonPressed(true);
+  };
+  
+  const pauseMovie = () => {
+    setPlayButtonPressed(false);
+  };
+  
   
   const download = () => {
     console.log("Button watch movie pressed!");
@@ -42,11 +60,13 @@ const MovieDetailScreen = () => {
   
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView ref={scrollViewRef}>
         <View>
           <VideoPlayer
             data={data}
             videoType={'trailer'}
+            playButtonPressed={playButtonPressed}
+            setPlayButtonPressed={setPlayButtonPressed}
           />
         </View>
         <View style={styles.header}>
@@ -81,18 +101,37 @@ const MovieDetailScreen = () => {
           </View>
         </View>
         <View style={styles.primaryActionButtonContainer}>
-          <TouchableOpacity
-            onPress={()=> watchMovie()}
-            style={styles.buttonPlay}
-          >
-            <Feather
-              name={'play'}
-              size={26}
-              color={Colors.dark.text}
-              style={styles.mr5}
-            />
-            <Text style={styles.textLight}>Lecture</Text>
-          </TouchableOpacity>
+          {playButtonPressed
+            ? (
+              <TouchableOpacity
+                onPress={()=> pauseMovie()}
+                style={styles.buttonPlay}
+              >
+                <Feather
+                  name={'pause'}
+                  size={26}
+                  color={Colors.dark.text}
+                  style={styles.mr5}
+                />
+                <Text style={styles.textLight}>Lecture</Text>
+              </TouchableOpacity>
+            )
+            : (
+              <TouchableOpacity
+                onPress={()=> playMovie()}
+                style={styles.buttonPlay}
+              >
+                <Feather
+                  name={'play'}
+                  size={26}
+                  color={Colors.dark.text}
+                  style={styles.mr5}
+                />
+                <Text style={styles.textLight}>Lecture</Text>
+              </TouchableOpacity>
+            )
+          }
+          
           <TouchableOpacity
             onPress={()=> download()}
             style={styles.buttonDownload}
@@ -149,7 +188,19 @@ const MovieDetailScreen = () => {
             <Text style={styles.textLight}>Partager</Text>
           </TouchableOpacity>
         </View>
-        <SimilarMovie movie={data} categoryID={categoryID}/>
+        <SimilarMovie
+          movie={data}
+          categoryID={categoryID}
+          scrollTop={() => scrollTop()}
+        />
+        <View style={styles.footer}>
+          <TouchableOpacity
+            onPress={scrollTop}
+            style={styles.buttonGoTop}
+          >
+            <Text style={styles.buttonGoTopText}>Go top</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

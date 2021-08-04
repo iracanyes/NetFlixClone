@@ -1,6 +1,7 @@
 // Movie Action Buttons component props
 
 import {PosterListDataType} from "../types";
+import {Dispatch, RefObject, SetStateAction} from "react";
 
 export interface IUser {
   id: string;
@@ -100,6 +101,22 @@ export interface IPosterListProps {
 export interface IPosterItemProps {
 	item: IMovieCategory|IEpisode
 	category?: ICategory
+	scrollTop?: () => void
+}
+
+export interface IResumeModal{
+	item: {
+		id: string;
+		title: string;
+		year: string;
+		poster: string;
+		plot: string;
+		creator: string;
+		numberOfSeasons: string;
+	},
+	modalVisibility: boolean
+	setModalVisibility: (modalVisibility: boolean) => void
+	scrollTop: (() => void)|undefined
 }
 
 export interface IGetMoviesByCategory {
@@ -109,9 +126,12 @@ export interface IGetMoviesByCategory {
 export interface ISimilarMovieProps {
 	movie: IMovie
 	categoryID: string;
+	scrollTop: () => void
 }
 
 export interface IVideoPlayerProps {
 	data: IMovie|IEpisode
 	videoType: string;
+	playButtonPressed: boolean,
+	setPlayButtonPressed: Dispatch<SetStateAction<boolean>>
 }

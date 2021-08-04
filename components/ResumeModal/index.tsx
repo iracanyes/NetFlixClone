@@ -9,27 +9,36 @@ import {S3Image} from "aws-amplify-react-native";
 import styles from "./styles";
 import Colors from "../../constants/Colors";
 import {Entypo, Feather, Fontisto, Ionicons} from "@expo/vector-icons";
-import {useNavigation} from "@react-navigation/native";
+import {useNavigation, useRoute, useScrollToTop} from "@react-navigation/native";
+import {IResumeModal} from "../../types/interfaces";
 
-interface IResumeModal{
-  item: {
-    id: string;
-    title: string;
-    year: string;
-    poster: string;
-    plot: string;
-    creator: string;
-    numberOfSeasons: string;
-  },
-  modalVisibility: boolean
-  setModalVisibility: (modalVisibility: boolean) => void
-}
+
 const ResumeModal = (props: IResumeModal) => {
-  const { item, modalVisibility ,setModalVisibility } = props;
+  const {
+    item,
+    modalVisibility ,
+    setModalVisibility,
+    scrollTop
+  } = props;
   const navigation = useNavigation();
-  
+  const route = useRoute();
   
   useEffect(()=> {}, []);
+  
+  const goToMovieDetail = () => {
+    console.log("ResumeModal route", route);
+    try{
+      if(route.name === "MovieDetail"){
+        setModalVisibility(false);
+        scrollTop && scrollTop();
+      }
+      navigation.navigate('MovieDetail', { data: item});
+    }catch (e) {
+      console.warn("ResumeModal goToMovieDetail error", e);
+    }
+    
+    
+  };
   
   const _watchMovie = () => {
     console.log("Button play movie pressed!");
@@ -147,7 +156,7 @@ const ResumeModal = (props: IResumeModal) => {
             <Text style={styles.textInfo}>Episode & infos</Text>
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('MovieDetail', {data : item })}
+            onPress={() => goToMovieDetail()}
           >
             <Entypo
               name={"arrow-with-circle-right"}
