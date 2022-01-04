@@ -1,10 +1,10 @@
 export const listCategories = /* GraphQL */ `
-  query ListCategorys(
+  query ListCategories(
     $filter: ModelCategoryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listCategorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listCategories(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         title
@@ -17,12 +17,12 @@ export const listCategories = /* GraphQL */ `
 `;
 
 export const listCategoryMovies = /* GraphQL */ `
-  query ListMovieCategorys(
+  query ListMovieCategories(
     $filter: ModelMovieCategoryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listMovieCategorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listMovieCategories(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         __typename
@@ -47,12 +47,12 @@ export const listCategoryMovies = /* GraphQL */ `
 `;
 
 export const listMovieCategories = /* GraphQL */ `
-  query ListMovieCategorys(
+  query ListMovieCategories(
     $filter: ModelMovieCategoryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listMovieCategorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listMovieCategories(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         __typename

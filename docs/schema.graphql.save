@@ -1,0 +1,171 @@
+
+type Category
+@model {
+  id: ID!
+  title: String!
+
+  categoryMovies: [MovieCategory] @connection(keyName:"byCategory", fields:["id"])
+  categorySeries: [SerieCategory] @connection(keyName:"byCategory", fields:["id"])
+}
+
+type Movie
+@model
+{
+  id: ID!
+  title: String!
+  poster: String!
+  year: Int
+  numberOfSeasons: Int 
+
+  # Synopsis 
+  plot: String
+  # Casting
+  cast: String
+  creator: String
+
+  trailer: String
+  video: String
+
+  movieCategories: [MovieCategory] @connection(keyName:"byMovie", fields:["id"])
+  watched: [Watched] @connection(keyName:"byMovie", fields:["id"])
+  seasons: [Season] @connection(keyName: "byMovie", fields: ["id"])
+}
+
+type Serie
+@model
+{
+  id: ID!
+  title: String!
+  poster: String!
+  year: Int
+  numberOfSeasons: Int
+
+  # Synopsis
+  plot: String
+  # Casting
+  cast: String
+  creator: String
+
+  trailer: String
+  video: String
+
+  serieCategories: [SerieCategory] @connection(keyName:"bySerie", fields:["id"])
+  watched: [Watched] @connection(keyName:"bySerie", fields:["id"])
+  seasons: [Season] @connection(keyName: "bySerie", fields: ["id"])
+}
+
+type MovieCategory
+@key(name:"byMovie", fields:["movieID","categoryID"])
+@key(name:"byCategory", fields:["categoryID","movieID"])
+@model
+{
+  id: ID!
+  categoryID: ID!
+  movieID: ID!
+
+  category: Category @connection(fields:["categoryID"])
+  movie: Movie @connection(fields:["movieID"])
+}
+
+type SerieCategory
+@key(name:"bySerie", fields:["serieID","categoryID"])
+@key(name:"byCategory", fields:["categoryID","serieID"])
+@model
+{
+  id: ID!
+  categoryID: ID!
+  serieID: ID!
+
+  category: Category @connection(fields:["categoryID"])
+  serie: Serie @connection(fields:["serieID"])
+}
+
+type Season 
+@model
+@key(name:"byMovie", fields: ["movieID"])
+@key(name:"bySerie", fields:["serieID"])
+{
+  id: ID!
+  name: String!
+  
+  movieID: ID
+  movie: Movie @connection(fields: ["movieID"])
+
+
+  serieID: ID
+  serie: Serie @connection(fields:["serieID"])
+
+  episodes: [Episode] @connection(keyName: "bySeason", fields: ["id"])
+}
+
+type Episode
+@model
+@key(name:"bySeason", fields: ["seasonID"])
+{
+  id: ID!
+  title: String!
+  poster: String!
+  duration: String!
+  # Synopsis
+  plot: String
+  video: String!
+
+  seasonID: ID!
+  season: Season @connection(fields: ["seasonID"])
+}
+
+type User
+@model
+{
+  id: ID!
+  username: String!
+  name: String
+  email: String!
+  accountType: String
+  status: String
+  image: String
+  watched: [Watched] @connection(keyName: "byUser", fields: ["id"])
+}
+
+type Watched
+@key(name:"byUser", fields:["userID"])
+@key(name:"byMovie", fields:["movieID","userID"])
+@key(name:"bySerie", fields:["serieID","userID"])
+@model
+{
+  id: ID!
+
+  userID: ID!
+  user: User @connection(fields:["userID"])
+
+  movieID: ID
+  movie: Movie @connection(fields:["movieID"])
+
+  serieID: ID
+  serie: Serie @connection(fields:["serieID"])
+
+}
+
+
+
+
+##############
+# Example
+##############
+#type Task
+#  @model
+#  @auth(
+#    rules: [
+#      { allow: groups, groups: ["Managers"], queries: null, mutations: [create, update, delete] }
+#      { allow: groups, groups: ["Employees"], queries: [get, list], mutations: null }
+#    ]
+#  ) {
+#  id: ID!
+#  title: String!
+#  description: String
+#  status: String
+#}
+#type PrivateNote @model @auth(rules: [{ allow: owner }]) {
+#  id: ID!
+#  content: String!
+#}

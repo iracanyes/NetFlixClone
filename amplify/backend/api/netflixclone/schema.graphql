@@ -1,40 +1,21 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
 
 type Category
 @model {
-  id: ID!
+  id: ID! @primaryKey(sortKeyFields: ["title"])
   title: String!
 
-  categoryMovies: [MovieCategory] @connection(keyName:"byCategory", fields:["id"])
-  categorySeries: [SerieCategory] @connection(keyName:"byCategory", fields:["id"])
+  categoryMovies: [MovieCategory] @hasMany(indexName:"byCategory", fields:["id"])
+  categorySeries: [SerieCategory] @hasMany(indexName:"byCategory", fields:["id"])
 }
 
 type Movie
 @model
 {
-  id: ID!
-  title: String!
-  poster: String!
-  year: Int
-  numberOfSeasons: Int 
-
-  # Synopsis 
-  plot: String
-  # Casting
-  cast: String
-  creator: String
-
-  trailer: String
-  video: String
-
-  movieCategories: [MovieCategory] @connection(keyName:"byMovie", fields:["id"])
-  watched: [Watched] @connection(keyName:"byMovie", fields:["id"])
-  seasons: [Season] @connection(keyName: "byMovie", fields: ["id"])
-}
-
-type Serie
-@model
-{
-  id: ID!
+  id: ID! @primaryKey(sortKeyFields: ["title"])
   title: String!
   poster: String!
   year: Int
@@ -49,60 +30,76 @@ type Serie
   trailer: String
   video: String
 
-  serieCategories: [SerieCategory] @connection(keyName:"bySerie", fields:["id"])
-  watched: [Watched] @connection(keyName:"bySerie", fields:["id"])
-  seasons: [Season] @connection(keyName: "bySerie", fields: ["id"])
+  movieCategories: [MovieCategory] @hasMany(fields:["id"])
+  watched: [Watched] @hasMany(fields:["id"])
+  seasons: [Season] @hasMany(fields: ["id"])
+}
+
+type Serie
+@model
+{
+  id: ID! @primaryKey(sortKeyFields: ["title"])
+  title: String!
+  poster: String!
+  year: Int
+  numberOfSeasons: Int
+
+  # Synopsis
+  plot: String
+  # Casting
+  cast: String
+  creator: String
+
+  trailer: String
+  video: String
+
+  serieCategories: [SerieCategory] @hasMany(fields:["id"])
+  watched: [Watched] @hasMany(fields:["id"])
+  seasons: [Season] @hasMany(indexName: "bySerie", fields: ["id"])
 }
 
 type MovieCategory
-@key(name:"byMovie", fields:["movieID","categoryID"])
-@key(name:"byCategory", fields:["categoryID","movieID"])
 @model
 {
-  id: ID!
-  categoryID: ID!
-  movieID: ID!
+  id: ID! @primaryKey
+  categoryID: ID! @index(name:"byCategory", sortKeyFields:["movieID"])
+  movieID: ID! @index(name:"byMovie", sortKeyFields:["categoryID"])
 
-  category: Category @connection(fields:["categoryID"])
-  movie: Movie @connection(fields:["movieID"])
+  category: Category @belongsTo(fields:["categoryID"])
+  movie: Movie @belongsTo(fields:["movieID"])
 }
 
 type SerieCategory
-@key(name:"bySerie", fields:["serieID","categoryID"])
-@key(name:"byCategory", fields:["categoryID","serieID"])
 @model
 {
-  id: ID!
-  categoryID: ID!
-  serieID: ID!
+  id: ID! @primaryKey
+  categoryID: ID! @index(name:"byCategory", sortKeyFields:["serieID"])
+  serieID: ID! @index(name:"bySerie", sortKeyFields:["categoryID"])
 
-  category: Category @connection(fields:["categoryID"])
-  serie: Serie @connection(fields:["serieID"])
+  category: Category @belongsTo(fields:["categoryID"])
+  serie: Serie @belongsTo(fields:["serieID"])
 }
 
-type Season 
+type Season
 @model
-@key(name:"byMovie", fields: ["movieID"])
-@key(name:"bySerie", fields:["serieID"])
 {
-  id: ID!
+  id: ID! @primaryKey(sortKeyFields: ["name"])
   name: String!
-  
-  movieID: ID
-  movie: Movie @connection(fields: ["movieID"])
+
+  movieID: ID @index(name:"byMovie", sortKeyFields: ["name"])
+  movie: Movie @belongsTo(fields: ["movieID"])
 
 
-  serieID: ID
-  serie: Serie @connection(fields:["serieID"])
+  serieID: ID @index(name:"bySerie", sortKeyFields:["name"])
+  serie: Serie @belongsTo(fields:["serieID"])
 
-  episodes: [Episode] @connection(keyName: "bySeason", fields: ["id"])
+  episodes: [Episode] @hasMany(indexName: "bySeason", fields: ["id"])
 }
 
 type Episode
 @model
-@key(name:"bySeason", fields: ["seasonID"])
 {
-  id: ID!
+  id: ID! @primaryKey(sortKeyFields:["title"])
   title: String!
   poster: String!
   duration: String!
@@ -110,39 +107,36 @@ type Episode
   plot: String
   video: String!
 
-  seasonID: ID!
-  season: Season @connection(fields: ["seasonID"])
+  seasonID: ID! @index(name:"bySeason", sortKeyFields: ["title"])
+  season: Season @belongsTo(fields: ["seasonID"])
 }
 
 type User
 @model
 {
-  id: ID!
+  id: ID! @primaryKey(sortKeyFields:["email"])
   username: String!
   name: String
   email: String!
   accountType: String
   status: String
   image: String
-  watched: [Watched] @connection(keyName: "byUser", fields: ["id"])
+  watched: [Watched] @hasMany(indexName: "byUser", fields: ["id"])
 }
 
 type Watched
-@key(name:"byUser", fields:["userID"])
-@key(name:"byMovie", fields:["movieID","userID"])
-@key(name:"bySerie", fields:["serieID","userID"])
 @model
 {
-  id: ID!
+  id: ID! @primaryKey
 
-  userID: ID!
-  user: User @connection(fields:["userID"])
+  userID: ID! @index(name:"byUser", sortKeyFields:["id"])
+  user: User @belongsTo(fields:["userID"])
 
-  movieID: ID
-  movie: Movie @connection(fields:["movieID"])
+  movieID: ID @index(name:"byMovie", sortKeyFields:["userID"])
+  movie: Movie @belongsTo(fields:["movieID"])
 
-  serieID: ID
-  serie: Serie @connection(fields:["serieID"])
+  serieID: ID @index(name:"bySerie", sortKeyFields:["userID"])
+  serie: Serie @belongsTo(fields:["serieID"])
 
 }
 

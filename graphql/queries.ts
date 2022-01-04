@@ -3,8 +3,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const getCategory = /* GraphQL */ `
-  query GetCategory($id: ID!) {
-    getCategory(id: $id) {
+  query GetCategory($id: ID!, $title: String!) {
+    getCategory(id: $id, title: $title) {
       id
       title
       categoryMovies {
@@ -32,13 +32,23 @@ export const getCategory = /* GraphQL */ `
     }
   }
 `;
-export const listCategorys = /* GraphQL */ `
-  query ListCategorys(
+export const listCategories = /* GraphQL */ `
+  query ListCategories(
+    $id: ID
+    $title: ModelStringKeyConditionInput
     $filter: ModelCategoryFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listCategorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listCategories(
+      id: $id
+      title: $title
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
         id
         title
@@ -56,8 +66,8 @@ export const listCategorys = /* GraphQL */ `
   }
 `;
 export const getMovie = /* GraphQL */ `
-  query GetMovie($id: ID!) {
-    getMovie(id: $id) {
+  query GetMovie($id: ID!, $title: String!) {
+    getMovie(id: $id, title: $title) {
       id
       title
       poster
@@ -107,11 +117,21 @@ export const getMovie = /* GraphQL */ `
 `;
 export const listMovies = /* GraphQL */ `
   query ListMovies(
+    $id: ID
+    $title: ModelStringKeyConditionInput
     $filter: ModelMovieFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listMovies(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listMovies(
+      id: $id
+      title: $title
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
         id
         title
@@ -140,8 +160,8 @@ export const listMovies = /* GraphQL */ `
   }
 `;
 export const getSerie = /* GraphQL */ `
-  query GetSerie($id: ID!) {
-    getSerie(id: $id) {
+  query GetSerie($id: ID!, $title: String!) {
+    getSerie(id: $id, title: $title) {
       id
       title
       poster
@@ -191,11 +211,21 @@ export const getSerie = /* GraphQL */ `
 `;
 export const listSeries = /* GraphQL */ `
   query ListSeries(
+    $id: ID
+    $title: ModelStringKeyConditionInput
     $filter: ModelSerieFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listSeries(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listSeries(
+      id: $id
+      title: $title
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
         id
         title
@@ -269,13 +299,21 @@ export const getMovieCategory = /* GraphQL */ `
     }
   }
 `;
-export const listMovieCategorys = /* GraphQL */ `
-  query ListMovieCategorys(
+export const listMovieCategories = /* GraphQL */ `
+  query ListMovieCategories(
+    $id: ID
     $filter: ModelMovieCategoryFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listMovieCategorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listMovieCategories(
+      id: $id
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
         id
         categoryID
@@ -353,13 +391,21 @@ export const getSerieCategory = /* GraphQL */ `
     }
   }
 `;
-export const listSerieCategorys = /* GraphQL */ `
-  query ListSerieCategorys(
+export const listSerieCategories = /* GraphQL */ `
+  query ListSerieCategories(
+    $id: ID
     $filter: ModelSerieCategoryFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listSerieCategorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listSerieCategories(
+      id: $id
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
         id
         categoryID
@@ -392,8 +438,8 @@ export const listSerieCategorys = /* GraphQL */ `
   }
 `;
 export const getSeason = /* GraphQL */ `
-  query GetSeason($id: ID!) {
-    getSeason(id: $id) {
+  query GetSeason($id: ID!, $name: String!) {
+    getSeason(id: $id, name: $name) {
       id
       name
       movieID
@@ -465,11 +511,21 @@ export const getSeason = /* GraphQL */ `
 `;
 export const listSeasons = /* GraphQL */ `
   query ListSeasons(
+    $id: ID
+    $name: ModelStringKeyConditionInput
     $filter: ModelSeasonFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listSeasons(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listSeasons(
+      id: $id
+      name: $name
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
         id
         name
@@ -514,8 +570,8 @@ export const listSeasons = /* GraphQL */ `
   }
 `;
 export const getEpisode = /* GraphQL */ `
-  query GetEpisode($id: ID!) {
-    getEpisode(id: $id) {
+  query GetEpisode($id: ID!, $title: String!) {
+    getEpisode(id: $id, title: $title) {
       id
       title
       poster
@@ -569,11 +625,21 @@ export const getEpisode = /* GraphQL */ `
 `;
 export const listEpisodes = /* GraphQL */ `
   query ListEpisodes(
+    $id: ID
+    $title: ModelStringKeyConditionInput
     $filter: ModelEpisodeFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listEpisodes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listEpisodes(
+      id: $id
+      title: $title
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
         id
         title
@@ -598,8 +664,8 @@ export const listEpisodes = /* GraphQL */ `
   }
 `;
 export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
+  query GetUser($id: ID!, $email: String!) {
+    getUser(id: $id, email: $email) {
       id
       username
       name
@@ -625,11 +691,21 @@ export const getUser = /* GraphQL */ `
 `;
 export const listUsers = /* GraphQL */ `
   query ListUsers(
+    $id: ID
+    $email: ModelStringKeyConditionInput
     $filter: ModelUserFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listUsers(
+      id: $id
+      email: $email
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
         id
         username
@@ -722,11 +798,19 @@ export const getWatched = /* GraphQL */ `
 `;
 export const listWatcheds = /* GraphQL */ `
   query ListWatcheds(
+    $id: ID
     $filter: ModelWatchedFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listWatcheds(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listWatcheds(
+      id: $id
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
         id
         userID
