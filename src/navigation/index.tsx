@@ -7,7 +7,7 @@ import {NavigationContainer, DefaultTheme, DarkTheme} from '@react-navigation/na
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import {ColorSchemeName, TouchableOpacity, View} from 'react-native';
-import { RootStackParamList } from '../types';
+import { RootStackParamList } from '../../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import ProfileBottomTabNavigator from './ProfileBottomTabNavigator';

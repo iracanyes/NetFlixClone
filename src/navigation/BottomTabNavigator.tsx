@@ -25,7 +25,7 @@ import {
   ComingSoonParamList, 
   SearchParamList,
   DownloadParamList 
-} from '../types';
+} from '../../types';
 import { 
   Entypo,
   Feather,

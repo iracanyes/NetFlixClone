@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import {Image, TouchableOpacity, View} from "react-native";
-import { ProfilePictureProps } from "../../types";
+import { ProfilePictureProps } from "../../../types";
 import {S3Image} from "aws-amplify-react-native";
 
 const ProfilePicture = ({ image, size = 50, styles, onPress = null}: ProfilePictureProps) => {

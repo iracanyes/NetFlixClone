@@ -1,6 +1,6 @@
 // Movie Action Buttons component props
 
-import {PosterListDataType} from "../types";
+import {PosterListDataType} from "../../types";
 import {Dispatch, RefObject, SetStateAction} from "react";
 
 export interface IUser {

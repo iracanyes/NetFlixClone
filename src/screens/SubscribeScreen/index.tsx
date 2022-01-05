@@ -24,7 +24,7 @@ import {
 import styles from "./styles";
 import { getUser } from "../../graphql/queries";
 import { createUser } from "../../graphql/mutations";
-import { UserInputProps } from "../../types";
+import { UserInputProps } from "../../../types";
 import BG from "../../assets/images/bg-login1.jpg";
 
 import { showToast } from "../../widget";

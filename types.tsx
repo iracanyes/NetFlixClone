@@ -1,4 +1,4 @@
-import {IEpisode, IMovieCategory} from "./types/interfaces";
+import {IEpisode, IMovieCategory} from "./src/types/interfaces";
 
 /**
  * Learn more about using TypeScript with React Navigation:

@@ -6,7 +6,7 @@ import { ProfilePicture } from "../components";
 import useColorScheme from '../hooks/useColorScheme';
 import Colors from "../constants/Colors";
 import { AntDesign, Octicons } from "@expo/vector-icons";
-import { ProfileBottomTabParamList } from "../types";
+import { ProfileBottomTabParamList } from "../../types";
 
 const ProfileBottomTab = createMaterialBottomTabNavigator<ProfileBottomTabParamList>();
 
