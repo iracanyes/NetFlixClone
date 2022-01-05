@@ -8,13 +8,13 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from '../../components/Themed';
 import styles from './styles';
-import {HomeHeader, MovieActionButtons, ProfilePicture} from '../../components';
+import { HomeHeader, MovieActionButtons, ProfilePicture} from '../../components';
 import Colors from '../../constants/Colors';
 import { Feather } from '@expo/vector-icons';
 import CategoryList from "../../components/CategoryList";
-import {S3Image} from "aws-amplify-react-native";
-import {API, Auth, graphqlOperation} from "aws-amplify";
-import {getMovie} from "../../graphql/queries";
+import { S3Image } from "aws-amplify-react-native";
+import { API, Auth, graphqlOperation } from "aws-amplify";
+import { customGetMovie } from "../../graphql/custom-queries";
 import VideoPlayer from "../../components/VideoPlayer";
 
 export default function HomeScreen() {
@@ -39,7 +39,7 @@ export default function HomeScreen() {
   useEffect(()=> {
     const fetchRecommendedMovie = async () => {
       const res = await API.graphql(graphqlOperation(
-        getMovie,
+        customGetMovie,
         { id: 'f94636fc-3b5c-4f6a-b18d-63a51c666705'}
       ));
       

@@ -8,7 +8,9 @@
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+              "apiKeyExpirationDays": 7,
+              "apiKeyExpirationDate": "2022-01-12T00:25:18.465Z",
+              "description": ""
             }
           },
           "additionalAuthenticationProviders": []
@@ -45,6 +47,13 @@
           "EMAIL"
         ]
       }
+    }
+  },
+  "storage": {
+    "NetflixClone": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
     }
   }
 }

@@ -1,4 +1,55 @@
-export const listCategories = /* GraphQL */ `
+export const customGetMovie = /* GraphQL */ `
+  query GetMovie($id: ID!) {
+    getMovie(id: $id) {
+      id
+      title
+      poster
+      year
+      numberOfSeasons
+      plot
+      cast
+      creator
+      trailer
+      video
+      movieCategories {
+        items {
+          id
+          categoryID
+          movieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      watched {
+        items {
+          id
+          userID
+          movieID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      seasons {
+        items {
+          id
+          name
+          movieID
+          serieID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const customListCategories = /* GraphQL */ `
   query ListCategories(
     $filter: ModelCategoryFilterInput
     $limit: Int
@@ -16,7 +67,7 @@ export const listCategories = /* GraphQL */ `
   }
 `;
 
-export const listCategoryMovies = /* GraphQL */ `
+export const customListCategoryMovies = /* GraphQL */ `
   query ListMovieCategories(
     $filter: ModelMovieCategoryFilterInput
     $limit: Int
@@ -27,6 +78,7 @@ export const listCategoryMovies = /* GraphQL */ `
         id
         __typename
         categoryID
+        movieID
         movie {
           id
           __typename
@@ -46,7 +98,7 @@ export const listCategoryMovies = /* GraphQL */ `
   }
 `;
 
-export const listMovieCategories = /* GraphQL */ `
+export const customListMovieCategories = /* GraphQL */ `
   query ListMovieCategories(
     $filter: ModelMovieCategoryFilterInput
     $limit: Int

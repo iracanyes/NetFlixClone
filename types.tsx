@@ -9,6 +9,7 @@ export type RootStackParamList = {
   Root: undefined;
   Login: undefined;
   Subscribe: undefined;
+  ConfirmSignUp: undefined;
   MovieDetail: undefined;
   Profile: undefined;
   NotFound: undefined;
@@ -53,3 +54,7 @@ export type ProfileBottomTabParamList = {
 };
 
 export type PosterListDataType = IMovieCategory[]|IEpisode[]|null;
+
+export type UserInputProps = {
+
+};

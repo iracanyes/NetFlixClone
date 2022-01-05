@@ -5,12 +5,12 @@ import {
   Text,
   View
 } from "react-native";
-import {S3Image} from "aws-amplify-react-native";
+import { S3Image } from "aws-amplify-react-native";
 import styles from "./styles";
 import Colors from "../../constants/Colors";
-import {Entypo, Feather, Fontisto, Ionicons} from "@expo/vector-icons";
-import {useNavigation, useRoute, useScrollToTop} from "@react-navigation/native";
-import {IResumeModal} from "../../types/interfaces";
+import { Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { IResumeModal } from "../../types/interfaces";
 
 
 const ResumeModal = (props: IResumeModal) => {
@@ -32,7 +32,7 @@ const ResumeModal = (props: IResumeModal) => {
         setModalVisibility(false);
         scrollTop && scrollTop();
       }
-      navigation.navigate('MovieDetail', { data: item});
+      item && "movie" in item && navigation.navigate('MovieDetail', { data: item.movie });
     }catch (e) {
       console.warn("ResumeModal goToMovieDetail error", e);
     }
@@ -57,23 +57,23 @@ const ResumeModal = (props: IResumeModal) => {
       animationType={"slide"}
       transparent={true}
       visible={modalVisibility}
-      onRequestClose={() => {
-        setModalVisibility(!modalVisibility)
-      }}
+      onRequestClose={() => setModalVisibility(!modalVisibility)}
       style={styles.modal}
     >
       <View style={styles.modalContainer}>
         <View style={styles.mainContainer}>
-          {item && (
+          {item && "poster" in item && (
             <S3Image
-              imgKey={'poster/'+item.poster}
+              imgKey={'poster/'+ item.poster}
               //@ts-ignore
               style={styles.image}
             />
           )}
           <View style={styles.mainContent}>
             <View style={styles.header}>
-              <Text style={styles.headerTitle}>{item.title}</Text>
+              { item && "title" in item && (
+                  <Text style={styles.headerTitle}>{item.title}</Text>
+              )}
               <TouchableOpacity
                 onPress={()=>setModalVisibility(!modalVisibility)}
               >
@@ -84,17 +84,19 @@ const ResumeModal = (props: IResumeModal) => {
                 />
               </TouchableOpacity>
             </View>
-            <View style={styles.subHeader}>
-              <Text style={styles.subHeaderItem}>{item.year}</Text>
-              <Text style={styles.subHeaderItem}>
-                {item.creator.indexOf(',') === -1
-                  ? item.creator
-                  : item.creator.split(',')[0] + ' ,...'
-                }
-              </Text>
-            </View>
+            { item && "creator" in item && (
+                <View style={styles.subHeader}>
+                  <Text style={styles.subHeaderItem}>{ item.year }</Text>
+                  <Text style={styles.subHeaderItem}>
+                    {item.creator.indexOf(',') === -1
+                        ? item.creator
+                        : item.creator.split(',')[0] + ' ,...'
+                    }
+                  </Text>
+                </View>
+            )}
             <View>
-              <Text style={styles.resume}>{ item.plot }</Text>
+              { item && "plot" in item && (<Text style={styles.resume}>{ item.plot }</Text>)}
             </View>
             
           </View>

@@ -1,6 +1,6 @@
 projects:
   netflixclone:
-    schemaPath: graphql/schema.json
+    schemaPath: src/graphql/schema.json
     includes:
       - graphql/**/*.ts
     excludes:
@@ -8,7 +8,7 @@ projects:
     extensions:
       amplify:
         codeGenTarget: typescript
-        generatedFileName: API.ts
+        generatedFileName: src/API.ts
         docsFilePath: graphql
 extensions:
   amplify:

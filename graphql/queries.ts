@@ -3,8 +3,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const getCategory = /* GraphQL */ `
-  query GetCategory($id: ID!, $title: String!) {
-    getCategory(id: $id, title: $title) {
+  query GetCategory($id: ID!) {
+    getCategory(id: $id) {
       id
       title
       categoryMovies {
@@ -35,7 +35,6 @@ export const getCategory = /* GraphQL */ `
 export const listCategories = /* GraphQL */ `
   query ListCategories(
     $id: ID
-    $title: ModelStringKeyConditionInput
     $filter: ModelCategoryFilterInput
     $limit: Int
     $nextToken: String
@@ -43,7 +42,6 @@ export const listCategories = /* GraphQL */ `
   ) {
     listCategories(
       id: $id
-      title: $title
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -66,8 +64,8 @@ export const listCategories = /* GraphQL */ `
   }
 `;
 export const getMovie = /* GraphQL */ `
-  query GetMovie($id: ID!, $title: String!) {
-    getMovie(id: $id, title: $title) {
+  query GetMovie($id: ID!) {
+    getMovie(id: $id) {
       id
       title
       poster
@@ -118,7 +116,6 @@ export const getMovie = /* GraphQL */ `
 export const listMovies = /* GraphQL */ `
   query ListMovies(
     $id: ID
-    $title: ModelStringKeyConditionInput
     $filter: ModelMovieFilterInput
     $limit: Int
     $nextToken: String
@@ -126,7 +123,6 @@ export const listMovies = /* GraphQL */ `
   ) {
     listMovies(
       id: $id
-      title: $title
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -160,8 +156,8 @@ export const listMovies = /* GraphQL */ `
   }
 `;
 export const getSerie = /* GraphQL */ `
-  query GetSerie($id: ID!, $title: String!) {
-    getSerie(id: $id, title: $title) {
+  query GetSerie($id: ID!) {
+    getSerie(id: $id) {
       id
       title
       poster
@@ -212,7 +208,6 @@ export const getSerie = /* GraphQL */ `
 export const listSeries = /* GraphQL */ `
   query ListSeries(
     $id: ID
-    $title: ModelStringKeyConditionInput
     $filter: ModelSerieFilterInput
     $limit: Int
     $nextToken: String
@@ -220,7 +215,6 @@ export const listSeries = /* GraphQL */ `
   ) {
     listSeries(
       id: $id
-      title: $title
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -438,8 +432,8 @@ export const listSerieCategories = /* GraphQL */ `
   }
 `;
 export const getSeason = /* GraphQL */ `
-  query GetSeason($id: ID!, $name: String!) {
-    getSeason(id: $id, name: $name) {
+  query GetSeason($id: ID!) {
+    getSeason(id: $id) {
       id
       name
       movieID
@@ -512,7 +506,6 @@ export const getSeason = /* GraphQL */ `
 export const listSeasons = /* GraphQL */ `
   query ListSeasons(
     $id: ID
-    $name: ModelStringKeyConditionInput
     $filter: ModelSeasonFilterInput
     $limit: Int
     $nextToken: String
@@ -520,7 +513,6 @@ export const listSeasons = /* GraphQL */ `
   ) {
     listSeasons(
       id: $id
-      name: $name
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -570,8 +562,8 @@ export const listSeasons = /* GraphQL */ `
   }
 `;
 export const getEpisode = /* GraphQL */ `
-  query GetEpisode($id: ID!, $title: String!) {
-    getEpisode(id: $id, title: $title) {
+  query GetEpisode($id: ID!) {
+    getEpisode(id: $id) {
       id
       title
       poster
@@ -626,7 +618,6 @@ export const getEpisode = /* GraphQL */ `
 export const listEpisodes = /* GraphQL */ `
   query ListEpisodes(
     $id: ID
-    $title: ModelStringKeyConditionInput
     $filter: ModelEpisodeFilterInput
     $limit: Int
     $nextToken: String
@@ -634,7 +625,6 @@ export const listEpisodes = /* GraphQL */ `
   ) {
     listEpisodes(
       id: $id
-      title: $title
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -664,8 +654,8 @@ export const listEpisodes = /* GraphQL */ `
   }
 `;
 export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!, $email: String!) {
-    getUser(id: $id, email: $email) {
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
       id
       username
       name
@@ -692,7 +682,6 @@ export const getUser = /* GraphQL */ `
 export const listUsers = /* GraphQL */ `
   query ListUsers(
     $id: ID
-    $email: ModelStringKeyConditionInput
     $filter: ModelUserFilterInput
     $limit: Int
     $nextToken: String
@@ -700,7 +689,6 @@ export const listUsers = /* GraphQL */ `
   ) {
     listUsers(
       id: $id
-      email: $email
       filter: $filter
       limit: $limit
       nextToken: $nextToken

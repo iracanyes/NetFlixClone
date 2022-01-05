@@ -5,7 +5,7 @@ import {Dispatch, RefObject, SetStateAction} from "react";
 
 export interface IUser {
   id: string;
-  _typename: string;
+  __typename?: string;
   username: string;
   name: string;
   email: string;
@@ -105,15 +105,7 @@ export interface IPosterItemProps {
 }
 
 export interface IResumeModal{
-	item: {
-		id: string;
-		title: string;
-		year: string;
-		poster: string;
-		plot: string;
-		creator: string;
-		numberOfSeasons: string;
-	},
+	item: IMovieCategory|IMovie|null;
 	modalVisibility: boolean
 	setModalVisibility: (modalVisibility: boolean) => void
 	scrollTop: (() => void)|undefined

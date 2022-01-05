@@ -10,6 +10,7 @@ import PosterItem from "../PosterItem";
 
 const PosterList = (props: IPosterListProps) => {
 	const { medias, category } = props;
+	//console.log(`\nPosterList medias\n`, medias);
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>{category.title}</Text>

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
-  Image,
   StyleSheet,
   TouchableOpacity,
   View
@@ -10,51 +9,80 @@ import {
   S3Image 
 } from "aws-amplify-react-native";
 import { IPosterItemProps } from "../types/interfaces";
-import {Auth} from "aws-amplify";
+import {API, Auth, graphqlOperation} from "aws-amplify";
 import ResumeModal from "./ResumeModal";
+import {customGetMovie} from "../graphql/custom-queries";
 
 const PosterItem = (props: IPosterItemProps) => {
   const { item, category, scrollTop } = props;
   
   const navigation = useNavigation();
   const [ userID, setUserID ] = useState(null);
+  const [ movie, setMovie ] = useState(null);
   const [ modalVisibility, setModalVisibility ] = useState(false);
   
-  
-  
-  
-  useEffect(()=> {
-    if(!('movie' in item)){
-      return;
+  console.log("PosterItem item", item);
+
+  const fetchUser = async () => {
+    const authUser = await Auth.currentAuthenticatedUser();
+
+    if(authUser.attributes){
+      setUserID(authUser.attributes.sub);
     }
-    
-    const fetchUser = async () => {
-      const authUser = await Auth.currentAuthenticatedUser();
-      
-      if(authUser.attributes){
-        setUserID(authUser.attributes.sub);
+
+  };
+
+  const fetchMovie = async () => {
+    try{
+      if("movie" in item && item.movie === null){
+        const res = await API.graphql(graphqlOperation(
+            customGetMovie,
+            { id: item.movieID }
+        ));
+
+        // @ts-ignore
+        if(res.data.getMovie){
+          // @ts-ignore
+          console.log("PostItem fetchMovie", res.data.getMovie);
+          // @ts-ignore
+          setMovie(res.data.getMovie);
+        }
+
       }
-      
-    };
+    }catch (e) {
+      console.error("PostItem fetchMovie error", e);
+    }
+
+  };
+
+  useEffect(()=> {
+    if(!('movie' in item) || item.movie === null){
+      fetchMovie();
+      //return;
+    }
     
     fetchUser();
   }, []);
   
   const goToMediaDetailScreen = () => {
-    switch (item.__typename) {
-      case "MovieCategory":
-        navigation.navigate(
-          'MovieScreen',
-          {
-            movie: item.movie.id,
-            category: category
-          }
-        );
-        break;
-      case "Episode":
-        navigation.navigate('SerieScreen', { movie: item.id });
-        break;
+    if(item && movie !== null){
+      switch (item.__typename) {
+        case "MovieCategory":
+          navigation.navigate( 'MovieScreen',
+              {
+                // @ts-ignore
+                movie: movie.id,
+                category: category
+              }
+          );
+          break;
+        case "Episode":
+          // @ts-ignore
+          navigation.navigate('SerieScreen', { movie: item.movie.id });
+          break;
+      }
     }
+
   };
   
   return (
@@ -63,7 +91,7 @@ const PosterItem = (props: IPosterItemProps) => {
         style={styles.container}
         onPress={() => setModalVisibility(!modalVisibility)}
       >
-        {'movie' in item && (
+        { "movie" in item && item.movie !== null && (
           <S3Image
             imgKey={'poster/' + item.movie.poster}
             //@ts-ignore
@@ -74,13 +102,15 @@ const PosterItem = (props: IPosterItemProps) => {
           />
         )}
       </TouchableOpacity>
-      <ResumeModal
-        // @ts-ignore
-        item={ item.__typename === "MovieCategory" ? item.movie : item }
-        modalVisibility={modalVisibility}
-        setModalVisibility={setModalVisibility}
-        scrollTop={scrollTop}
-      />
+      {((item.__typename !== "MovieCategory") || item.movie) && (
+          <ResumeModal
+              // @ts-ignore
+              item={ item.__typename !== "MovieCategory" ? item : item.movie }
+              modalVisibility={modalVisibility}
+              setModalVisibility={setModalVisibility}
+              scrollTop={scrollTop}
+          />
+      )}
     </View>
   );
   

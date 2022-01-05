@@ -5,7 +5,7 @@ import {Auth, Storage} from "aws-amplify";
 import {IVideoPlayerProps} from "../../types/interfaces";
 import * as ScreenOrientation from "expo-screen-orientation";
 import styles from "./styles";
-import MultiSlider from "2";
+import MultiSlider from "@ptomasroos/react-native-multi-slider";
 
 Storage.configure({
   [Storage.getModuleName()]: {

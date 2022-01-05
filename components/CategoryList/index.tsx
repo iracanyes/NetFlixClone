@@ -6,7 +6,7 @@ import {
 } from "react-native";
 import GetMoviesByCategory from "../../HOC/GetMoviesByCategory";
 import {API, graphqlOperation} from "aws-amplify";
-import {listCategorys} from "../../graphql/queries";
+import { listCategories } from "../../graphql/queries";
 import {ICategory} from "../../types/interfaces";
 import Colors from "../../constants/Colors";
 
@@ -17,13 +17,13 @@ const CategoryList = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try{
-        const res = await API.graphql(graphqlOperation(listCategorys));
+        const res = await API.graphql(graphqlOperation(listCategories));
   
         // @ts-ignore
-        if(res.data.listCategorys){
+        if(res.data.listCategories){
           
           // @ts-ignore
-          setCategories(res.data.listCategorys.items);
+          setCategories(res.data.listCategories.items);
         }
       }catch (e) {
         console.warn('CategoryList useEffect error', e);

@@ -54,7 +54,12 @@ const ConfirmSignUpScreen = () => {
   };
 
   const getUserInDb = async (user: any) => {
-    const response = await API.graphql(graphqlOperation(getUser, { id: user.attributes.sub}));
+    const response = await API.graphql(graphqlOperation(
+        getUser,
+        {
+          id: user.attributes.sub,
+        }
+    ));
 
     //@ts-ignore
     return response.data.getUser ?? null;

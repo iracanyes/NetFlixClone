@@ -18,5 +18,11 @@ export type AmplifyDependentResourcesAttributes = {
             "AppClientIDWeb": "string",
             "AppClientID": "string"
         }
+    },
+    "storage": {
+        "NetflixClone": {
+            "BucketName": "string",
+            "Region": "string"
+        }
     }
 }

@@ -24,7 +24,7 @@ import {
 import styles from "./styles";
 import { getUser } from "../../graphql/queries";
 import { createUser } from "../../graphql/mutations";
-import {UserInputProps} from "../../types";
+import { UserInputProps } from "../../types";
 import BG from "../../assets/images/bg-login1.jpg";
 
 import { showToast } from "../../widget";
@@ -62,12 +62,17 @@ const SubscribeScreen = (props: SubscribeProps) => {
   };
 
   const getCognitoUser = async () => {
-    return await Auth.currentAuthenticatedUser()
+    return Auth.currentAuthenticatedUser()
       .catch( (error) => console.warn("SubscribeScreen current authenticated user error :", error));
   };
 
-  const getUserInDb = async (id: any) => {
-    return await API.graphql(graphqlOperation(getUser, { id: id}));
+  const getUserInDb = async (id: string) => {
+    return API.graphql(graphqlOperation(
+        getUser,
+        {
+          id: id,
+        }
+    ));
 
   }
 
@@ -82,12 +87,16 @@ const SubscribeScreen = (props: SubscribeProps) => {
     try{
       // inscription Cognito
       const signUpResponse = await signUpRequest;
-
+      console.log(`\nsignUpResponse\n`, signUpResponse);
 
       // Vérifie si l'utilisateur existe en db sinon on le crée
       if(signUpResponse.userSub !== undefined){
         showToast('Inscription confirmée!');
-        navigation.navigate('ConfirmSignUp');
+        navigation.navigate('ConfirmSignUp', {
+          // @ts-ignore
+          username: signUpResponse.user.username,
+          userSub: signUpResponse.userSub
+        });
       }else{
         showToast("An error occured during the process of sign in");
         console.warn("An error occured during the process of sign in");
@@ -103,6 +112,7 @@ const SubscribeScreen = (props: SubscribeProps) => {
       switch(true){
         case /UsernameExistsException/.test(error.code):
           showToast(`"${email}" already exists in our database`);
+          navigation.navigate("login");
           break;
         case /validation error detected/.test(error.message):
           showToast(error.message.split(':').slice(1).join());

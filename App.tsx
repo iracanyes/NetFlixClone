@@ -7,7 +7,7 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import Amplify, {Auth, Hub, Storage} from "aws-amplify";
 import { withAuthenticator } from "aws-amplify-react-native";
-import config from "./aws-exports";
+import config from "./src/aws-exports";
 import Colors from "./constants/Colors";
 
 Amplify.configure({
@@ -24,20 +24,27 @@ function App() {
   const [ user, setUser ] = useState(null);
   
   useEffect(() => {
-    Hub.listen("auth", ({ payload: { event, data }}) => {
-      switch (event){
-        case 'signIn':
-          setUser(data);
-          break;
-        case 'signOut':
-          Auth.federatedSignIn();
-          setUser(null);
-          break;
-      }
-    });
-    
+    try{
+      Hub.listen("auth", ({ payload: { event, data }}) => {
+        switch (event){
+          case 'signIn':
+            setUser(data);
+            break;
+          case 'signOut':
+            Auth.federatedSignIn();
+            setUser(null);
+            break;
+        }
+      });
+
+    }catch (e) {
+      console.error(`\nApp Hub listen error\n ${e}`);
+    }
+
     Auth.currentAuthenticatedUser()
-      .then(user => setUser(user))
+      .then(user => {
+        setUser(user);
+      })
       .catch(e => {
         console.log('Not sign In', e);
         

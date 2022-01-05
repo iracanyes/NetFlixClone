@@ -15,6 +15,7 @@ web-build/
 .DS_Store
 
 # Customs
+amplify/backend/storage
 docs/poster
 docs/trailer
 

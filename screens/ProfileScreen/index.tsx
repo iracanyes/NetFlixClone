@@ -19,6 +19,7 @@ export default function ProfileScreen() {
   const navigation = useNavigation();
   const [ user, setUser ] = useState(null);
 
+  // @ts-ignore
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
@@ -40,21 +41,24 @@ export default function ProfileScreen() {
                 style={styles.iconSearch}
                 />
               </TouchableOpacity>
-              <ProfilePicture 
-                image={user !== null ? user.image : 'https://www.fillmurray.com/1024/780'}
-                size={30}
-                styles={{
-                  profileButton: {
-                    borderWidth: 3,
-                    backgroundColor: '#0000',
-                    borderColor: Colors.dark.tintFirst,
-                    borderRadius: 15,
-                    padding: 5,
-                    marginLeft: 5
-                  },
-                  profileImage: {},
-                }}
-              />
+              { user !== null && (
+                  <ProfilePicture
+                      image={ user ? user.image : 'https://www.fillmurray.com/1024/780'}
+                      size={30}
+                      styles={{
+                        profileButton: {
+                          borderWidth: 3,
+                          backgroundColor: '#0000',
+                          borderColor: Colors.dark.tintFirst,
+                          borderRadius: 15,
+                          padding: 5,
+                          marginLeft: 5
+                        },
+                        profileImage: {},
+                      }}
+                  />
+              )}
+
             </View>
           </View>
           <View style={styles.subtitleContainer}>
@@ -88,9 +92,12 @@ export default function ProfileScreen() {
           source={{ uri: 'https://www.fillmurray.com/1024/780'}} 
           style={styles.recommendedMovie}
           />
-        <MovieActionButtons 
-          movie={{}}
-        />
+        {/*
+          <MovieActionButtons
+            movie={{}}
+          />
+        */}
+
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       </View>
       

@@ -15,7 +15,7 @@ import {
   LoginScreen,
   SubscribeScreen,
   MovieDetailScreen,
-  NotFoundScreen
+  NotFoundScreen, ConfirmSignUpScreen
 } from "../screens";
 import {
   Entypo
@@ -51,6 +51,7 @@ function RootNavigator() {
     >
       <Stack.Screen name={"Login"} component={LoginScreen} />
       <Stack.Screen name={"Subscribe"} component={SubscribeScreen} />
+      <Stack.Screen name={"ConfirmSignUp"} component={ConfirmSignUpScreen} />
       <Stack.Screen name="Root" component={BottomTabNavigator} />
       <Stack.Screen
         name="Profile"

@@ -5,7 +5,7 @@ input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONL
 
 type Category
 @model {
-  id: ID! @primaryKey(sortKeyFields: ["title"])
+  id: ID! @primaryKey
   title: String!
 
   categoryMovies: [MovieCategory] @hasMany(indexName:"byCategory", fields:["id"])
@@ -15,7 +15,7 @@ type Category
 type Movie
 @model
 {
-  id: ID! @primaryKey(sortKeyFields: ["title"])
+  id: ID! @primaryKey
   title: String!
   poster: String!
   year: Int
@@ -38,7 +38,7 @@ type Movie
 type Serie
 @model
 {
-  id: ID! @primaryKey(sortKeyFields: ["title"])
+  id: ID! @primaryKey
   title: String!
   poster: String!
   year: Int
@@ -83,7 +83,7 @@ type SerieCategory
 type Season
 @model
 {
-  id: ID! @primaryKey(sortKeyFields: ["name"])
+  id: ID! @primaryKey
   name: String!
 
   movieID: ID @index(name:"byMovie", sortKeyFields: ["name"])
@@ -99,7 +99,7 @@ type Season
 type Episode
 @model
 {
-  id: ID! @primaryKey(sortKeyFields:["title"])
+  id: ID! @primaryKey
   title: String!
   poster: String!
   duration: String!
@@ -114,7 +114,7 @@ type Episode
 type User
 @model
 {
-  id: ID! @primaryKey(sortKeyFields:["email"])
+  id: ID! @primaryKey
   username: String!
   name: String
   email: String!

@@ -6,7 +6,11 @@
     "gqlSchemaPath": "C:\\Projets\\mobile\\react-native\\exercice\\NetflixClone\\amplify\\backend\\api\\netflixclone\\schema.graphql",
     "defaultAuthType": {
       "mode": "API_KEY",
-      "expirationTime": 7
-    }
+      "expirationTime": 7,
+      "apiKeyExpirationDate": "2022-01-12T00:25:18.465Z",
+      "keyDescription": ""
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": []
   }
 }

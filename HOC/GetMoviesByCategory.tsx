@@ -4,12 +4,12 @@ import {
   PosterList
 } from "../components";
 import { IGetMoviesByCategory } from "../types/interfaces";
-import {listCategoryMovies} from "../graphql/custom-queries";
+import {customListCategoryMovies} from "../graphql/custom-queries";
 import {View} from "react-native";
 
 const GetMoviesByCategory = (props: IGetMoviesByCategory) => {
   const { category } = props;
-  const [ moviesByCategory, setMoviesByCategory ] = useState(null);
+  const [ moviesByCategory, setMoviesByCategory ] = useState([]);
 
   // Get All movies from a category
   useEffect(() => {
@@ -18,7 +18,7 @@ const GetMoviesByCategory = (props: IGetMoviesByCategory) => {
         if(category === undefined) return;
         // @ ts-ignore
         const res = await API.graphql(graphqlOperation(
-          listCategoryMovies,
+          customListCategoryMovies,
           {
             filter: {
               categoryID: { contains: category.id}
@@ -28,16 +28,15 @@ const GetMoviesByCategory = (props: IGetMoviesByCategory) => {
         // @ts-ignore
         //console.log('GetMoviesByCategory useEffect res', res.data)
         // @ts-ignore
-        if(res.data.listMovieCategorys){
+        if(res.data.listMovieCategories){
           // @ts-ignore
-          //console.log('GetMoviesByCategory useEffect res', res.data.listMovieCategorys)
+          //console.log('GetMoviesByCategory useEffect res', res.data.listMovieCategories)
           // @ts-ignore
-          setMoviesByCategory(res.data.listMovieCategorys.items);
+          setMoviesByCategory(res.data.listMovieCategories.items);
         }
       }catch (e) {
         console.warn('GetMoviesByCategory useEffect res error', e);
       }
-      
       
     };
 
@@ -46,7 +45,7 @@ const GetMoviesByCategory = (props: IGetMoviesByCategory) => {
 
   return (
     <View>
-      { category && (<PosterList medias={moviesByCategory} category={category}/>)}
+      { category && moviesByCategory.length > 0 && (<PosterList medias={moviesByCategory} category={category}/>)}
     </View>
   );
 };
